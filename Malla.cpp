@@ -2,63 +2,19 @@
 #include <iostream>
 using namespace std;
 
-void Malla::dibuja(bool normales, bool lines) {
-	int paintMode;
-	if (lines)
-		paintMode = GL_LINE_LOOP;
-	else
-		paintMode = GL_POLYGON;
-	
-	GLdouble pMX = 0, pMY = 0, pMZ = 0;
-	PV3D* vDirector;
-
+void Malla::dibuja()
+{
 	for (int i = 0; i < numCaras; i++) {	
 		glLineWidth(1.0);
-		glBegin(paintMode);
-		for (int j = 0; j < cara[i]->getNumVertices(); j++)	{
-			int iN = cara[i]->getIndiceNormal(j);
-			int	iV = cara[i]->getIndiceVertice(j);
+		glBegin(GL_LINE_LOOP);
+			for (int j = 0; j < cara[i]->getNumVertices(); j++)	{
+				int iN = cara[i]->getIndiceNormal(j);
+				int	iV = cara[i]->getIndiceVertice(j);
 
-			glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
-			glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
-			
-			if (normales) {
-				//Va sumando las componentes de cada vértice de la cara
-				pMX += vertice[iV]->getX();
-				pMY += vertice[iV]->getY();
-				pMZ += vertice[iV]->getZ();
-				//Guarda el vector normal a la cara
-				vDirector = normal[iN];// new PV3D(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ(), 1);
+				glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
+				glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
 			}
-
-		}
 		glEnd();
-		if (normales) {
-			//Divide cada suma de componentes entre el número de vértices de la cara
-			int numV = cara[i]->getNumVertices();
-			pMX = pMX / numV;
-			pMY = pMY / numV;
-			pMZ = pMZ / numV;
-			
-			//Se guarda el color anterior en el array currentColor, para luego volver a ponerlo
-			GLfloat currentColor[4];
-			glGetFloatv(GL_CURRENT_COLOR, currentColor);
-
-
-			//Se comienza a pintar las normales de la cara i-ésima
-			glBegin(GL_LINES);
-			glColor3f(0.0, 0.0, 0.0);
-			glVertex3f(pMX,pMY,pMZ);
-			glVertex3f(pMX + vDirector->getX(), pMY + vDirector->getY(), pMZ + vDirector->getZ());
-			glEnd();
-
-			//Se vuelve a poner el color anterior a pintar las normales
-			glColor3f(currentColor[0],currentColor[1],currentColor[2]);
-
-			pMX = 0;
-			pMY = 0;
-			pMZ = 0;
-		}
 	}
 }
 

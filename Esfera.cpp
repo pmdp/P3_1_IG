@@ -1,8 +1,17 @@
 #include "Esfera.h"
 
-
-void Esfera :: dibuja()
+Esfera::Esfera(float radio, float slices, float stacks)
 {
-	glColor3f(r,g,b); 
-	gluSphere(esfera,radio,slice,stak);
+	_radio = radio;
+	_slices = slices;
+	_stacks = stacks;
+
+	_esfera = gluNewQuadric();
+	gluQuadricDrawStyle(_esfera, GLU_FILL);
+}
+
+void Esfera::dibuja()
+{
+	glColor3f(_color->getR(), _color->getG(), _color->getB());
+	gluSphere(_esfera, _radio, _slices, _stacks);
 }

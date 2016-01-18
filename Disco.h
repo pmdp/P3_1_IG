@@ -1,31 +1,19 @@
 #pragma once
 
-#include <Windows.h>
-#include <gl/GLU.h>
-#include "Objeto3D.h"
+#include <GL/glu.h>
+#include "ObjetoCuadrico.h"
 
-class Disco:
-	public Objeto3D
+class Disco: public ObjetoCuadrico
 {
-public:
-	Disco(float ri,float re,float sl,float vue)
-	{
-		radioI=ri;radioE=re;slice=sl;vueltas=vue;
-		disco=gluNewQuadric();
-		gluQuadricDrawStyle(disco, GLU_FILL);
-	}
-	~Disco(void)
-	{
-		//gluDeleteQuadric(disco);
-	}
-
-	virtual void dibuja();
-
 private:
-	GLUquadricObj* disco;
-	float radioI;
-	float radioE;
-	float slice;
-	float vueltas;
+	GLUquadricObj* _disco;
+	float _inner;
+	float _outer;
+	float _slices;
+	float _loops;
+
+public:
+	Disco(float inner, float outer, float slices, float loops);
+	virtual void dibuja();
 };
 

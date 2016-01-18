@@ -1,27 +1,14 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
-
-#include <GL/freeglut.h>
 #include <GL/glut.h>
 
 #include "Ficha.h"
-#include "MontanaRusa.h"
 #include "Camara.h"
 #include <iostream>
 using namespace std;
 
-// Freeglut parameters
-// Flag telling us to keep processing events
-// bool continue_in_main_loop= true; //(**)
-
 // Viewport size
 int WIDTH= 500, HEIGHT= 500;
-
-//Clases y variables
-Ficha *ficha;
-int numQuesitos = 6;
-bool normales=false, lines=false, quesMont=true, baldosas=false, rotar=false;
-MontanaRusa *montanaRusa;
 GLdouble alphaX=0, alphaY=0, alphaZ=0;
 Camara* cam;
 
@@ -34,11 +21,11 @@ GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
 
 //Prototipos
-void zoom();
+//void zoom();
 void display();
 void drawScene();
 void drawAxes();
-void rotacion(GLdouble alpha, GLdouble x, GLdouble y, GLdouble z);
+//void rotacion(GLdouble alpha, GLdouble x, GLdouble y, GLdouble z);
 
 void drawAxes() {
 	// Drawing axes
@@ -58,14 +45,10 @@ void drawAxes() {
 }
 
 void buildSceneObjects()  {
-	//Objetos de la escena
-	ficha = new Ficha(numQuesitos);
-	montanaRusa = new MontanaRusa(20, 200);
-
-	//Cámara
-	PV3D* eye = new PV3D(eyeX, eyeY, eyeZ, 1);
+	// Camara
+	PV3D* eye  = new PV3D(eyeX, eyeY, eyeZ, 1);
 	PV3D* look = new PV3D(lookX, lookY, lookZ, 0);
-	PV3D* up = new PV3D(upX, upY, upZ, 0);
+	PV3D* up   = new PV3D(upX, upY, upZ, 0);
 	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot);
 }
 void traslacionX(GLdouble incr) {
@@ -143,26 +126,8 @@ void initGL() {
 
 
 	buildSceneObjects();
+}
 
-	//// Camera set up
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
-	//gluLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
-
-	// Frustum set up
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//glOrtho(xLeft, xRight, yBot, yTop, N, F);
-
-	// Viewport set up
-	//glViewport(0, 0, WIDTH, HEIGHT);
-
-
-	//Setup cámera matrix view and projection
-	/*cam->setLookAt();
-	cam->ortogonal();
-	cam->setUVN();*/
- }
 void drawScene() {
 	glMatrixMode(GL_MODELVIEW);
 
@@ -174,19 +139,13 @@ void drawScene() {
 	glRotated(alphaY, 0, 1, 0);
 	glRotated(alphaZ, 0, 0, 1);
 
-	if (quesMont)
-		montanaRusa->dibuja(normales, lines);
-	else
-		ficha->dibuja(normales, lines);
 	glPopMatrix();
 }
+
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if (baldosas)
-		embaldosar(2);
-	else
-		drawScene();
+	drawScene();
 
 	glFlush();
 	glutSwapBuffers();
@@ -219,7 +178,8 @@ void resize(int newWidth, int newHeight) {
 	glLoadIdentity();
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
-void special_key(int key, int, int y) {
+void special_key(int key, int, int y)
+{
 	bool need_redisplay = true;
 	switch (key) {
 	case 101://up arrow
@@ -319,36 +279,11 @@ void key(unsigned char key, int x, int y){
 		case 57://9
 			cam->ortogonal();
 			break;
-		case 241://ñ
-			if (normales)
-				normales = false;
-			else
-				normales = true;
-			break;
-		case 108://l
-			if (lines)
-				lines = false;
-			else
-				lines = true;
-			break;
-		case 32://espacio
-			if (quesMont)
-				quesMont = false;
-			else
-				quesMont = true;
-			break;
 		case 116://t
 			zoom(1.25);
 			break;
 		case 121://y
 			zoom(0.75);
-			break;
-		case 111://o
-			baldosas = true;
-			break;
-		case 112://p
-			baldosas = false;
-			desembaldosar();
 			break;
 		case 117://u
 			cam->roll(2.0);
@@ -388,7 +323,7 @@ int main(int argc, char *argv[]){
 	glutInit(&argc, argv);
 
 	// Window construction
-	my_window = glutCreateWindow("Freeglut 3D-project");
+	my_window = glutCreateWindow("Practica 3");
 
 	// Callback registration
 	glutReshapeFunc(resize);
@@ -404,7 +339,7 @@ int main(int argc, char *argv[]){
 
 	// Classic glut's main loop can be stopped after X-closing the window,
 	// using the following freeglut's setting (*)
-	glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION) ;
+	//glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
 	// Classic glut's main loop can be stopped in freeglut using (*)
 	glutMainLoop();

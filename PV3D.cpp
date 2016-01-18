@@ -17,7 +17,7 @@ void PV3D::normaliza() {
 }
 
 PV3D* PV3D::clona() {
-	PV3D *punto = new PV3D(); 
+	PV3D *punto = new PV3D(0, 0, 0, 1);
 
 	punto->_x = _x;
 	punto->_y = _y;

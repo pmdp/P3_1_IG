@@ -1,12 +1,12 @@
 #include "Objeto3D.h"
 
-void Objeto3D :: setTransAfin (TAfin matriz)
+Objeto3D::Objeto3D()
 {
-	for (int i=0; i<16; i++)
-		m.matriz[i]=matriz.matriz[i];
+	_color = new Color();
 }
 
-void Objeto3D :: setColor(float rojo, float verde, float azul)
+void Objeto3D::setTransAfin(TAfin tAfin)
 {
-	r=rojo; g=verde; b=azul;
+	for (int i = 0; i < 16; i++)
+		_tAfin.matriz[i] = tAfin.matriz[i];
 }

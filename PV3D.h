@@ -7,7 +7,6 @@ private:
 	int _pv; // Si pv = 0 --> punto, si pv = 1 --> vector
 
 public:
-	PV3D() : _pv(1), _x(0), _y(0), _z(0) {}
 	PV3D(GLdouble x, GLdouble y, GLdouble z, int pv);
 
 	void normaliza();

@@ -1,20 +1,22 @@
 #pragma once
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-#include <GL/freeglut.h>
 #include "PV3D.h"
 #include "Cara.h"
+#include "Objeto3D.h"
 
-class Malla {
+class Malla : public Objeto3D {
 protected:
 	int numVertices;
 	PV3D** vertice;
-	int numNormales; //=numCaras, frecuentemente
+	int numNormales;
 	PV3D** normal;
 	int numCaras;
 	Cara** cara;
+
 public:
-	void dibuja(bool normales, bool lines);
+	virtual void dibuja();
 	PV3D* CalculoVectorNormalPorNewell(Cara *c);
 };

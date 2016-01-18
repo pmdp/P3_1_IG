@@ -90,17 +90,3 @@ _nq(nq), _radio(radio), _altura(altura)
 	PV3D* vn22 = CalculoVectorNormalPorNewell(cara[indiceCara]);
 	normal[indiceCara] = vn22;
 }
-
-Quesito::~Quesito() {
-//for (int i = 0; i < numVertices; i++)
-//delete vertice[i];
-//delete[] vertice;
-//
-//for (int i = 0; i < numNormales; i++)
-//delete normal[i];
-//delete[] normal;
-//
-//for (int i = 0; i < numCaras; i++)
-//delete cara[i];
-//delete[] cara;
-}

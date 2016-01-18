@@ -1,26 +1,18 @@
 #pragma once
-#include <Windows.h>
-#include <gl/GLU.h>
-#include "Objeto3D.h"
 
-class Esfera:
-	public Objeto3D
+#include <GL/glu.h>
+#include "ObjetoCuadrico.h"
+
+class Esfera : public ObjetoCuadrico
 {
-public:
-	Esfera(float ra, float sl, float st)
-	{
-		radio=ra; slice=sl;stak=st;
-		esfera=gluNewQuadric();
-		gluQuadricDrawStyle(esfera, GLU_FILL);
-	}
-	~Esfera(void)
-	{
-		//gluDeleteQuadric(esfera);
-	}
-
-	virtual void dibuja();
 private:
-	GLUquadricObj* esfera;
-	float radio, slice, stak;
+	GLUquadricObj* _esfera;
+	float _radio;
+	float _slices;
+	float _stacks;
+
+public:
+	Esfera(float radio, float slices, float stacks);
+	virtual void dibuja();
 };
 

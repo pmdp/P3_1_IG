@@ -1,14 +1,15 @@
 #pragma once
+
+#include "ObjetoCompuesto3D.h"
 #include "Quesito.h"
 
-class Ficha
+class Ficha : public ObjetoCompuesto3D
 {
-	Quesito* quesito;
+	Quesito* _quesito;
 	int _numQuesitos;
+
 public:
 	Ficha(int numQuesitos);
-	~Ficha();
-
-	void dibuja(bool normales, bool lines);
+	virtual void dibuja();
 };
 

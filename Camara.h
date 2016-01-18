@@ -9,12 +9,12 @@
 class Camara
 {
 private:
-	//Valores de la cámara
+	//Valores de la cï¿½mara
 	PV3D *_eye, *_look, *_up, *_u, *_v, *_n;
 	//Valores del volumen de vista
 	GLdouble _right, _left, _top, _botton, _near, _far, _fovy, _aspect;
-	GLdouble _r = 10; //Radio de la circunferencia al girar la cámara sobre un eje
-	GLdouble _tX = 0, _tY = 0, _tZ = 0; //Incrementos de la posición en la circunferencia
+	GLdouble _r; //Radio de la circunferencia al girar la cï¿½mara sobre un eje
+	GLdouble _tX, _tY, _tZ; //Incrementos de la posiciï¿½n en la circunferencia
 
 
 public:

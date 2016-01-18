@@ -1,9 +1,17 @@
-#include "TAfin.h"
 #include <math.h>
 #include <algorithm>
 
+#include "TAfin.h"
 
-TAfin TAfin :: translated(float x, float y, float z)
+TAfin::TAfin()
+{
+	matriz[0]  = matriz[5]  = matriz[10] = matriz[15] = 1;
+	matriz[1]  = matriz[2]  = matriz[3]  = matriz[4]  = matriz[6]  = 0;
+	matriz[7]  = matriz[8]  = matriz[9]  = matriz[11] = matriz[12] = 0;
+	matriz[13] = matriz[14] = 0;
+}
+
+TAfin TAfin::translated(float x, float y, float z)
 {
 	TAfin ret;
 	ret.matriz[0] = matriz[0]; ret.matriz[4]=matriz[4]; ret.matriz[8]=matriz[8];   ret.matriz[12]=matriz[0]*x+matriz[4]*y+matriz[8]*z+matriz[12];
@@ -13,7 +21,7 @@ TAfin TAfin :: translated(float x, float y, float z)
 	return ret;
 }
 
-TAfin TAfin :: scaled(float sx, float sy, float sz)
+TAfin TAfin::scaled(float sx, float sy, float sz)
 {
 	TAfin ret;
 	ret.matriz[0] = matriz[0]*sx; ret.matriz[4] = matriz[4]*sy; ret.matriz[8] = matriz[8]*sz;  ret.matriz[12] = matriz[12];
@@ -23,7 +31,7 @@ TAfin TAfin :: scaled(float sx, float sy, float sz)
 	return ret;
 }
 
-TAfin TAfin :: rotateX(float angle)
+TAfin TAfin::rotateX(float angle)
 {
 	TAfin ret;
 	float coseno = cos(angle / 180 * 3.14159265);
@@ -49,7 +57,7 @@ TAfin TAfin :: rotateX(float angle)
 	return ret;
 }
 
-TAfin TAfin :: rotateY(float angle)
+TAfin TAfin::rotateY(float angle)
 {
 	TAfin ret;
 	float coseno = cos(angle / 180 * 3.14159265);
@@ -75,7 +83,7 @@ TAfin TAfin :: rotateY(float angle)
 	return ret;
 }
 
-TAfin TAfin :: rotateZ(float angle)
+TAfin TAfin::rotateZ(float angle)
 {
 	TAfin ret;
 	float coseno = cos(angle / 180 * 3.14159265);
@@ -102,7 +110,7 @@ TAfin TAfin :: rotateZ(float angle)
 }
 
 
-TAfin TAfin :: postMultiplica(TAfin pos)
+TAfin TAfin::postMultiplica(TAfin pos)
 {
 	TAfin ret;
 	ret.matriz[0]=matriz[0]*pos.matriz[0]  + matriz[1]*pos.matriz[4]  + matriz[2]*pos.matriz[8]  + matriz[3]*pos.matriz[12];
@@ -124,7 +132,7 @@ TAfin TAfin :: postMultiplica(TAfin pos)
 	return ret;
 }
 
-TAfin TAfin :: trans()
+TAfin TAfin::trans()
 {
 	TAfin ret;
 	for (int i=0; i<16; i++)
