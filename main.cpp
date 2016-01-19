@@ -7,7 +7,7 @@
 #include <iostream>
 using namespace std;
 
-Escena* escena;
+ObjetoCompuesto3D* escena;
 
 // Viewport size
 int WIDTH= 800, HEIGHT= 600;
@@ -55,7 +55,6 @@ void initGL() {
 
 	buildSceneObjects();
 }
-
 
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

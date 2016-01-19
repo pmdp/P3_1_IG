@@ -5,8 +5,12 @@
 #include "Ficha.h"
 
 class Coche : public ObjetoCompuesto3D {
-	Cubo*   _chasis;
-	Ficha** _ruedas;
+private:
+	ObjetoCompuesto3D* _coche;
+	Objeto3D**		   _ruedas;
+	Objeto3D*		   _chasis;
+
+	int _numRuedas;
 
 public:
 	Coche();

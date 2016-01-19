@@ -9,7 +9,7 @@ void ObjetoCompuesto3D::dibuja()
 		while (it != hijos.end()) 
 		{
 			Objeto3D* object = *it;
-			glMultMatrixf(object->getTAfin()._m);
+			glMultMatrixf(object->getTAfin()->m);
 			object->dibuja();
 			it++;
 		}
