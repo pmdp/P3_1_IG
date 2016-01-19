@@ -3,8 +3,11 @@
 #include <GL/glut.h>
 
 #include "Camara.h"
+#include "Escena.h"
 #include <iostream>
 using namespace std;
+
+Escena* escena;
 
 // Viewport size
 int WIDTH= 800, HEIGHT= 600;
@@ -26,6 +29,8 @@ void buildSceneObjects()  {
 	PV3D* up   = new PV3D(upX, upY, upZ, 0);
 
 	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot);
+
+	escena = new Escena();	
 }
 
 void initGL() {
@@ -51,22 +56,11 @@ void initGL() {
 	buildSceneObjects();
 }
 
-void drawScene() {
-	glMatrixMode(GL_MODELVIEW);
-
-	glPushMatrix();
-
-	glRotated(alphaX, 1, 0, 0);
-	glRotated(alphaY, 0, 1, 0);
-	glRotated(alphaZ, 0, 0, 1);
-
-	glPopMatrix();
-}
 
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	drawScene();
+	escena->dibuja();
 
 	glFlush();
 	glutSwapBuffers();
