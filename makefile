@@ -5,6 +5,7 @@
 -include ../makefile.init
 
 RM := rm -rf
+PROG=Practica3
 
 # All of the sources participating in the build are defined here
 -include sources.mk
@@ -47,6 +48,11 @@ main: $(OBJS) $(USER_OBJS)
 	g++  -o "Practica3" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
+
+.PHONY : run
+run : $(PROG) 
+	./$(PROG)
+
 
 # Other Targets
 clean:
