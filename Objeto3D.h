@@ -12,11 +12,11 @@ protected:
 	Color* color;
 
 public:
-	TAfin* mt;
-	Objeto3D(TAfin* matriz) : mt(matriz) {}
-	virtual ~Objeto3D() { delete mt; }
-
+	Objeto3D();
+	virtual ~Objeto3D();
 	virtual void dibuja() = 0;
+
+	TAfin* mt;
 };
 
 #endif

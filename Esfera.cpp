@@ -1,7 +1,6 @@
 #include "Esfera.h"
 
 Esfera::Esfera(float radio, float slices, float stacks)
-: ObjetoCuadrico(new TAfin())
 {
 	_radio = radio;
 	_slices = slices;

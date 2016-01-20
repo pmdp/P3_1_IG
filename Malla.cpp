@@ -1,11 +1,4 @@
-﻿#include <iostream>
-#include "Malla.h"
-using namespace std;
-
-Malla::Malla(TAfin* mt)
-: Objeto3D(mt)
-{
-}
+﻿#include "Malla.h"
 
 void Malla::dibuja()
 {

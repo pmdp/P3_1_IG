@@ -3,7 +3,6 @@
 using namespace std;
 
 Tablero::Tablero(int largo, int alto, int ancho)
-: ObjetoCompuesto3D(new TAfin())
 {
 	_largo = largo;
 	_alto  = alto;

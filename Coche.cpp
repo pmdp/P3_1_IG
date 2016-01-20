@@ -4,7 +4,6 @@
 #include "PV3D.h"
 
 Coche::Coche() 
-: ObjetoCompuesto3D(new TAfin()) 
 {
 	// RUEDAS ------------------------
 	addObjeto(new Ficha());

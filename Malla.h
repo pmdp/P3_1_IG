@@ -18,7 +18,6 @@ protected:
 	Cara** cara;
 
 public:
-	Malla(TAfin* mt);
 	void dibuja();
 	PV3D* CalculoVectorNormalPorNewell(Cara *c);
 };

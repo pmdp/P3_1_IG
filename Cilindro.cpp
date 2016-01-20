@@ -1,13 +1,13 @@
 #include "Cilindro.h"
 
 Cilindro::Cilindro(float radio1, float radio2, float alto, float slices, float stacks)
-: ObjetoCuadrico(new TAfin()), 
-_radio1(radio1), 
-_radio2(radio2), 
-_alto(alto), 
-_slices(slices), 
-_stacks(stacks)
 {
+	_radio1 = radio1;
+	_radio2 = radio2;
+	_alto   = alto;
+	_slices = slices;
+	_stacks = stacks;
+
 	_cilindro = gluNewQuadric();
 	gluQuadricDrawStyle(_cilindro, GLU_FILL);
 }

@@ -4,7 +4,6 @@
 
 class ObjetoCuadrico : public Objeto3D {
 public:
-	ObjetoCuadrico(TAfin* mt) : Objeto3D(mt) {}
 	void dibuja();
 };
 

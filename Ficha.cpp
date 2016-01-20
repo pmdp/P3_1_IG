@@ -2,7 +2,6 @@
 #include <cmath>
 
 Ficha::Ficha()
-: ObjetoCompuesto3D(new TAfin())
 {
 	_numQuesitos = 6;
 

@@ -5,8 +5,7 @@
 using namespace std;
 
 Quesito::Quesito(int nq, int r, int a) 
-: Malla(new TAfin()), 
-_nq(nq), _radio(r), _altura(a)
+: _nq(nq), _radio(r), _altura(a)
 {
 	int m = 3;//numero de puntos en el perfil original
 

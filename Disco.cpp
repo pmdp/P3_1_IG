@@ -1,7 +1,6 @@
 #include "Disco.h"
 
 Disco::Disco(float inner, float outer, float slices, float loops)
-: ObjetoCuadrico(new TAfin())
 {
 	_inner  = inner;
 	_outer  = outer;
