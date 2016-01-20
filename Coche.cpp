@@ -1,26 +1,33 @@
 #include "Coche.h"
+#include "PV3D.h"
+#include <iostream>
+using namespace std;
 
-Coche::Coche() {
-	
+Coche::Coche() 
+{
 	// RUEDAS ------------------------
 	_numRuedas = 4;
-	_coche = new ObjetoCompuesto3D();
+	//_coche = new ObjetoCompuesto3D();
 
-	//_ruedas = new Quesito*[_numRuedas];
-	//_ruedas[0] = new Quesito(6, 3, 3);
-	//_ruedas[1] = new Quesito(6, 3, 3);
-	//_ruedas[2] = new Quesito(6, 3, 3);
-	//_ruedas[3] = new Quesito(6, 3, 3);
-
-	//for(int i = 0; i < _numRuedas; i++)
-		//_coche->addObjeto(_ruedas[i]);
+	addObjeto(new Ficha());
+	//_rueda2 = new Ficha();
+	//_rueda3 = new Ficha();
+	//_rueda4 = new Ficha();
 	
+	//_coche->addObjeto(new Ficha());
+	//_coche->addObjeto(_rueda2);
+	//_coche->addObjeto(_rueda3);
+	//_coche->addObjeto(_rueda4);
 	// CHASIS ------------------------
-	_chasis = new Cubo();
-	_coche->addObjeto(_chasis);
+	
+	addObjeto(new Cubo());
+	//_coche->addObjeto(new Cubo());
+	//_coche->getObjetoAt(1)->getTAfin()->translada(new PV3D(4, 0, 0, 1));
+cout << "Coche constru" << endl;
 }
 
-void Coche::dibuja()
-{
-	_coche->dibuja();
-}
+//void Coche::dibuja()
+//{
+	//cout << "Coche dibuja" << endl;
+	//ObjetoCompuesto3D::dibuja();	
+//}

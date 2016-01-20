@@ -16,7 +16,7 @@ private:
 public:
 	Objeto3D() { _mt = new TAfin(); }
 	virtual ~Objeto3D() { delete _mt; }
-	virtual void dibuja() = 0;
+	virtual void dibuja();
 	TAfin* getTAfin() { return _mt; }
 };
 

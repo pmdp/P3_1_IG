@@ -1,18 +1,13 @@
 #include "Escena.h"
 #include <iostream>
+using namespace std;
 
 Escena::Escena() {
-	_autopista = new Autopista();
-	_coche     = new Coche();
-	//_farolas   = new Farola*[2];
-
-	this->addObjeto(_autopista);
+	ObjetoCompuesto3D::addObjeto(new Coche());
 }
 
-void Escena::dibuja()
-{
-	_autopista->dibuja();
-	_coche->dibuja();
-	//_farolas[0]->dibuja();
-	//_farolas[1]->dibuja();
-}
+//void Escena::dibuja()
+//{
+	//cout << "Escena::dibuja" << endl;
+	//ObjetoCompuesto3D::dibuja();
+//}

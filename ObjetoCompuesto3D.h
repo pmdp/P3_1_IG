@@ -12,5 +12,6 @@ protected:
 public:
 	void dibuja();
 	void addObjeto(Objeto3D* o);
+	Objeto3D* getObjetoAt(int pos);
 };
 

@@ -7,11 +7,11 @@
 
 class Escena : public ObjetoCompuesto3D {
 private:
-	Autopista* _autopista;
-	Coche* 	  _coche;
-	Farola** _farolas;
+	//Autopista* _autopista;
+	//Coche* 	  _coche;
+	//Farola** _farolas;
 
 public:
 	Escena();
-	void dibuja();
+	//void dibuja();
 };

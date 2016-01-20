@@ -6,11 +6,11 @@
 class Ficha : public ObjetoCompuesto3D
 {
 private:
-	Quesito** _quesito;
 	int _numQuesitos;
+	//ObjetoCompuesto3D* _fichas;
 
 public:
 	Ficha();
-	void dibuja();
+	//void dibuja();
 };
 
