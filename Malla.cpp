@@ -1,14 +1,24 @@
 ﻿#include <iostream>
 #include "Malla.h"
 
-using namespace std;
+Malla::Malla(TAfin* mt)
+: Objeto3D(mt)
+{
+}
 
 void Malla::dibuja()
 {
-	for (int i = 0; i < numCaras; i++) {	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glPushMatrix();
+		glMultMatrixf(mt->m);
+
+	for (int i = 0; i < numCaras; i++) 
+	{	
 		glLineWidth(1.0);
 		glBegin(GL_LINE_LOOP);
-			for (int j = 0; j < cara[i]->getNumVertices(); j++)	{
+			for (int j = 0; j < cara[i]->getNumVertices(); j++)	
+			{
 				int iN = cara[i]->getIndiceNormal(j);
 				int	iV = cara[i]->getIndiceVertice(j);
 
@@ -17,10 +27,12 @@ void Malla::dibuja()
 			}
 		glEnd();
 	}
+
+	glPopMatrix();
 }
 
-PV3D* Malla::CalculoVectorNormalPorNewell(Cara *c) {
-	
+PV3D* Malla::CalculoVectorNormalPorNewell(Cara *c) 
+{
 	PV3D *vertActual	= new PV3D(0.0f, 0.0f, 0.0f, 1);
 	PV3D *vertSiguiente = new PV3D(0.0f, 0.0f, 0.0f, 1);
 

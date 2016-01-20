@@ -9,7 +9,6 @@ private:
 	int _altura; //Altura
 
 public:
-	Quesito(int nq, int r, int a) : Malla(new TAfin()), _nq(nq), _radio(r), _altura(a) {}
-	void dibuja();
+	Quesito(int nq, int r, int a);
 };
 
