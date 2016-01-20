@@ -3,5 +3,5 @@
 
 void Cubo::dibuja()
 {
-	glutWireCube(4);
+	glutSolidCube(4);
 }

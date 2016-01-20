@@ -26,8 +26,7 @@ void TAfin::escala(PV3D* v)
 	glPushMatrix();
 		glLoadIdentity();
 		glScaled(v->getX(), v->getY(), v->getZ());
-		GLfloat m1[16];
-		glGetFloatv(GL_MODELVIEW_MATRIX, m1);
+		glGetFloatv(GL_MODELVIEW_MATRIX, m);
 	glPopMatrix();
 }
 
@@ -37,8 +36,7 @@ void TAfin::rota(float angle, float x, float y, float z)
 	glPushMatrix();
     	glLoadIdentity();
         glRotated(angle, x, y, z);
-		GLfloat m1[16];
-		glGetFloatv(GL_MODELVIEW_MATRIX, m1);
+		glGetFloatv(GL_MODELVIEW_MATRIX, m);
 	glPopMatrix();
 }
 

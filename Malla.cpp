@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "Malla.h"
+using namespace std;
 
 Malla::Malla(TAfin* mt)
 : Objeto3D(mt)
@@ -9,24 +10,23 @@ Malla::Malla(TAfin* mt)
 void Malla::dibuja()
 {
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 	glPushMatrix();
-		glMultMatrixf(mt->m);
+	glMultMatrixf(this->mt->m);
 
-	for (int i = 0; i < numCaras; i++) 
-	{	
-		glLineWidth(1.0);
-		glBegin(GL_LINE_LOOP);
-			for (int j = 0; j < cara[i]->getNumVertices(); j++)	
-			{
-				int iN = cara[i]->getIndiceNormal(j);
-				int	iV = cara[i]->getIndiceVertice(j);
+		for (int i = 0; i < numCaras; i++) 
+		{	
+			glLineWidth(1.0);
+			glBegin(GL_LINE_LOOP);
+				for (int j = 0; j < cara[i]->getNumVertices(); j++)	
+				{
+					int iN = cara[i]->getIndiceNormal(j);
+					int	iV = cara[i]->getIndiceVertice(j);
 
-				glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
-				glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
-			}
-		glEnd();
-	}
+					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
+					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
+				}
+			glEnd();
+		}
 
 	glPopMatrix();
 }

@@ -13,6 +13,6 @@ Coche::Coche()
 		addObjeto(new Ficha());
 		
 	// CHASIS ------------------------
-	addObjeto(new Cubo());
+	//addObjeto(new Cubo());
 }
 
