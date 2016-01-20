@@ -9,15 +9,14 @@ using namespace std;
 
 class Objeto3D {
 protected:
-	Color* _color;
-private:
-	TAfin* _mt; // Marco de coordenadas donde se mostrará el objeto
+	Color* color;
+	TAfin* mt;
 
 public:
-	Objeto3D() { _mt = new TAfin(); }
-	virtual ~Objeto3D() { delete _mt; }
-	virtual void dibuja();
-	TAfin* getTAfin() { return _mt; }
+	Objeto3D(TAfin* matriz) : mt(matriz) {}
+	virtual ~Objeto3D() { delete mt; }
+
+	virtual void dibuja() = 0;
 };
 
 #endif

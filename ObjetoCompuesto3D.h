@@ -6,12 +6,11 @@
 class ObjetoCompuesto3D : public Objeto3D
 {
 protected:
-	//int _numHijos;
 	std::vector<Objeto3D*> hijos;
 
 public:
+	ObjetoCompuesto3D(TAfin* mt) : Objeto3D(mt) {};
 	void dibuja();
 	void addObjeto(Objeto3D* o);
-	Objeto3D* getObjetoAt(int pos);
 };
 
