@@ -7,7 +7,7 @@ class TAfin {
 
 public:
 	TAfin();
-	void translada(PV3D* v);
+	void traslada(PV3D* v);
 	void rota(float angle, float x, float y, float z);
 	void escala(PV3D* v);
 	void postMultiplica(GLfloat* m1);

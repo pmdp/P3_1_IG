@@ -10,9 +10,9 @@ using namespace std;
 class Objeto3D {
 protected:
 	Color* color;
-	TAfin* mt;
 
 public:
+	TAfin* mt;
 	Objeto3D(TAfin* matriz) : mt(matriz) {}
 	virtual ~Objeto3D() { delete mt; }
 

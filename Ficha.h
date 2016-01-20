@@ -7,10 +7,8 @@ class Ficha : public ObjetoCompuesto3D
 {
 private:
 	int _numQuesitos;
-	//ObjetoCompuesto3D* _fichas;
 
 public:
 	Ficha();
-	//void dibuja();
 };
 

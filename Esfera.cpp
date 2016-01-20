@@ -1,6 +1,7 @@
 #include "Esfera.h"
 
 Esfera::Esfera(float radio, float slices, float stacks)
+: ObjetoCuadrico(new TAfin())
 {
 	_radio = radio;
 	_slices = slices;
@@ -12,6 +13,6 @@ Esfera::Esfera(float radio, float slices, float stacks)
 
 void Esfera::dibuja()
 {
-	glColor3f(_color->getR(), _color->getG(), _color->getB());
+	glColor3f(color->getR(), color->getG(), color->getB());
 	gluSphere(_esfera, _radio, _slices, _stacks);
 }

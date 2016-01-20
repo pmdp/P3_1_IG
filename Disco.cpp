@@ -1,6 +1,7 @@
 #include "Disco.h"
 
 Disco::Disco(float inner, float outer, float slices, float loops)
+: ObjetoCuadrico(new TAfin())
 {
 	_inner  = inner;
 	_outer  = outer;
@@ -13,6 +14,6 @@ Disco::Disco(float inner, float outer, float slices, float loops)
 
 void Disco::dibuja()
 {
-	glColor3f(_color->getR(), _color->getG(), _color->getB());
+	glColor3f(color->getR(), color->getG(), color->getB());
 	gluDisk(_disco, _inner, _outer, _slices, _loops);
 }
