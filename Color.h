@@ -12,6 +12,8 @@ public:
 	float getG() { return _g; }
 	float getB() { return _b; }
 
+	void setColor(float r, float g, float b) { _r = r; _g = g; _b = b; }
+
 	void setR(float r) { _r = r; }
 	void setG(float g) { _g = g; }
 	void setB(float b) { _b = b; }

@@ -35,6 +35,7 @@ void TAfin::rota(float angle, float x, float y, float z)
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
     	glLoadIdentity();
+    	glLoadMatrixf(m);
         glRotated(angle, x, y, z);
 		glGetFloatv(GL_MODELVIEW_MATRIX, m);
 	glPopMatrix();

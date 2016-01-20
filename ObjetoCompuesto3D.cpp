@@ -1,22 +1,24 @@
 #include <GL/gl.h>
 #include "ObjetoCompuesto3D.h"
 
+ObjetoCompuesto3D::ObjetoCompuesto3D()
+{
+	_numHijos = 0;
+	hijos = new Objeto3D*[50];
+}
+
 void ObjetoCompuesto3D::dibuja()
 {
-		std::vector<Objeto3D*>::iterator it = hijos.begin();
-		while (it != hijos.end()) 
-		{
-			glMatrixMode(GL_MODELVIEW);
-			glPushMatrix();
-				glMultMatrixf(this->mt->m);
-				Objeto3D* object = *it;
-				object->dibuja();
-				it++;
-			glPopMatrix();
-		}
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+		glMultMatrixf(this->mt->m);
+		for(int i = 0; i < _numHijos; i++)
+			hijos[i]->dibuja();
+	glPopMatrix();
 }
 
 void ObjetoCompuesto3D::addObjeto(Objeto3D* o)
 {
-	hijos.push_back(o);
+	hijos[_numHijos] = o;
+	_numHijos++;
 }

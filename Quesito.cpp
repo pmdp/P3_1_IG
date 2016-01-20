@@ -55,7 +55,6 @@ Quesito::Quesito(int nq, int r, int a)
 	int indiceCara = 0;
 	for (int i = 0; i < n; i++) { //Unir el perfil i-isimo con el (i+1)%n-isimo
 		for (int j = 0; j < m - 1; j++) {//esquina inferior-izquierda de una cara
-			//indiceCara = i*(m-1)+j;
 			int indice = i*m + j;
 			VerticeNormal** vn = new VerticeNormal*[4];
 			vn[0] = new VerticeNormal(indice, indiceCara);
@@ -65,7 +64,6 @@ Quesito::Quesito(int nq, int r, int a)
 			cara[indiceCara] = new Cara(4, vn);
 			PV3D* v = CalculoVectorNormalPorNewell(cara[indiceCara]);//Newell
 			normal[indiceCara] = v;
-			//cout << "Cara " << indiceCara << " : " << indice << " " << (indice + m) % numVertices << " " << (indice + 1 + m) % numVertices << " " << indice + 1 << endl;
 			indiceCara++;
 		}
 	}

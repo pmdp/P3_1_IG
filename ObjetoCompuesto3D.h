@@ -1,14 +1,15 @@
 #pragma once
 
-#include <vector>
 #include "Objeto3D.h"
 
 class ObjetoCompuesto3D : public Objeto3D
 {
 protected:
-	std::vector<Objeto3D*> hijos;
+	int _numHijos;
+	Objeto3D** hijos;
 
 public:
+	ObjetoCompuesto3D();
 	void dibuja();
 	void addObjeto(Objeto3D* o);
 };

@@ -4,12 +4,12 @@ void Malla::dibuja()
 {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
-	glMultMatrixf(this->mt->m);
+	glMultMatrixf(mt->m);
 
 		for (int i = 0; i < numCaras; i++) 
 		{	
 			glLineWidth(1.0);
-			glBegin(GL_LINE_LOOP);
+			glBegin(GL_POLYGON);
 				for (int j = 0; j < cara[i]->getNumVertices(); j++)	
 				{
 					int iN = cara[i]->getIndiceNormal(j);

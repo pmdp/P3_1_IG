@@ -23,6 +23,11 @@ Coche::Coche()
 	hijos[3]->mt->rota(90, 1, 0, 0);
 	
 	// CHASIS ------------------------
-	//addObjeto(new Cubo());
+	addObjeto(new Cubo());
+	hijos[4]->mt->traslada(new PV3D(4, 0, 0, 1));
+
+	addObjeto(new Cubo());
+	hijos[5]->mt->traslada(new PV3D(12, 0, 10, 1));
+
 }
 

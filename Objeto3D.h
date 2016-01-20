@@ -8,14 +8,12 @@
 using namespace std;
 
 class Objeto3D {
-protected:
-	Color* color;
-
 public:
 	Objeto3D();
 	virtual ~Objeto3D();
 	virtual void dibuja() = 0;
 
+	Color* color;
 	TAfin* mt;
 };
 
