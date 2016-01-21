@@ -5,5 +5,5 @@
 class Coche : public ObjetoCompuesto3D {
 public:
 	Coche();
-	void giraRuedas(float angle);
+	void girar(float angle);
 };

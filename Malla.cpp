@@ -61,5 +61,4 @@ Malla::~Malla()
 	for (int i = 0; i < numCaras; i++)
 		delete cara[i];
 	delete[] cara;
-
 }

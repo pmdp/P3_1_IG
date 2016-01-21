@@ -20,6 +20,7 @@ protected:
 public:
 	~Malla();
 	void dibuja();
+	virtual void girar(float angle) {}
 	PV3D* CalculoVectorNormalPorNewell(Cara *c);
 };
 

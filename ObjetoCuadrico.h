@@ -5,5 +5,6 @@
 class ObjetoCuadrico : public Objeto3D {
 public:
 	void dibuja();
+	void girar(float angle) {}
 };
 
