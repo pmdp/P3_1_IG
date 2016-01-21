@@ -104,9 +104,6 @@ void display(void) {
 	drawAxes();
 	drawGrid(200,4);
 	
-	
-	//escena->getObjeto(1)->mt->traslada(new PV3D(-0.25,0,0,1));
-	
 	glPushMatrix();
 		glRotated(alphaX, 1, 0, 0);
 		glRotated(alphaY, 0, 1, 0);
@@ -160,12 +157,12 @@ void special_key(int key, int, int y)
 		cam->avanzaEje(0.25,0,0);
 		break;
 	case 102://right arrow
-		escena->getObjeto(1)->mt->traslada(new PV3D(0, 0, -1, 1));
-		//escena->getObjeto(1)->mt->rota(-10,0,1,0);
+		//escena->getObjeto(1)->mt->traslada(new PV3D(0, 0, -1, 1));
+		escena->getObjeto(1)->mt->rota(-10,0,1,0);
 		break;
 	case 100://left arrow
-		escena->getObjeto(1)->mt->traslada(new PV3D(0, 0, 1, 1));
-		//escena->getObjeto(1)->mt->rota(10,0,1,0);
+		//escena->getObjeto(1)->mt->traslada(new PV3D(0, 0, 1, 1));
+		escena->getObjeto(1)->mt->rota(10,0,1,0);
 		break;
 	default:
 		need_redisplay = false;
