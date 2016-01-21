@@ -12,5 +12,6 @@ public:
 	ObjetoCompuesto3D();
 	void dibuja();
 	void addObjeto(Objeto3D* o);
+	Objeto3D* getObjeto(int pos);
 };
 

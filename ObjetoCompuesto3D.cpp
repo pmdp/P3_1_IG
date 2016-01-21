@@ -4,7 +4,7 @@
 ObjetoCompuesto3D::ObjetoCompuesto3D()
 {
 	_numHijos = 0;
-	hijos = new Objeto3D*[50000];
+	hijos = new Objeto3D*[5000];
 }
 
 void ObjetoCompuesto3D::dibuja()
@@ -23,3 +23,9 @@ void ObjetoCompuesto3D::addObjeto(Objeto3D* o)
 	_numHijos++;
 }
 
+Objeto3D* ObjetoCompuesto3D::getObjeto(int pos){
+	if(pos < _numHijos && pos >= 0)
+		return hijos[pos];
+	else
+		return NULL;
+}

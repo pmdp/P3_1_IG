@@ -33,3 +33,9 @@ Coche::Coche()
 	hijos[4]->color->setColor(1, 0, 0);
 }
 
+void Coche::giraRuedas(float angle){
+	for (int i = 0; i < 4; i++){
+		hijos[i]->mt->rota(angle,0,0,1);
+	}
+}
+

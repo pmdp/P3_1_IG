@@ -77,7 +77,15 @@ void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawAxes();
 
-	escena->dibuja();
+	glPushMatrix();
+
+		glRotated(alphaX, 1, 0, 0);
+		glRotated(alphaY, 0, 1, 0);
+		glRotated(alphaZ, 0, 0, 1);
+
+		escena->dibuja();
+
+	glPopMatrix();
 
 	glFlush();
 	glutSwapBuffers();
@@ -114,16 +122,22 @@ void special_key(int key, int, int y)
 	bool need_redisplay = true;
 	switch (key) {
 	case 101://up arrow
-		glRotatef(-20, 1, 0, 0);
+		//glRotatef(-20, 1, 0, 0);
+		escena->getObjeto(1)->mt->traslada(new PV3D(-0.25,0,0,1));
+		//cam->
+		//escena->getObjeto(0)->
 		break;
 	case 103://down arrow
-		glRotatef(20, 1, 0, 0);
+		//glRotatef(20, 1, 0, 0);
+		escena->getObjeto(1)->mt->traslada(new PV3D(0.25,0,0,1));
 		break;
 	case 102://right arrow
-		glRotatef(20, 0, 1, 0);
+		//glRotatef(20, 0, 1, 0);
+		escena->getObjeto(1)->mt->rota(-10,0,1,0);
 		break;
 	case 100://left arrow
-		glRotatef(-20, 0, 1, 0);
+		//glRotatef(-20, 0, 1, 0);
+		escena->getObjeto(1)->mt->rota(10,0,1,0);
 		break;
 	default:
 		need_redisplay = false;
