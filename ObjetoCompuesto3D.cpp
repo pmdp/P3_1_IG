@@ -23,9 +23,17 @@ void ObjetoCompuesto3D::addObjeto(Objeto3D* o)
 	_numHijos++;
 }
 
-Objeto3D* ObjetoCompuesto3D::getObjeto(int pos){
+Objeto3D* ObjetoCompuesto3D::getObjeto(int pos)
+{
 	if(pos < _numHijos && pos >= 0)
 		return hijos[pos];
 	else
 		return NULL;
+}
+
+ObjetoCompuesto3D::~ObjetoCompuesto3D()
+{
+	for (int i = 0; i < _numHijos; i++)
+		delete hijos[i];
+	delete[] hijos;
 }

@@ -24,6 +24,19 @@ GLdouble upX=0, upY=1, upZ=0;
 
 void zoom(GLdouble f);
 
+void drawGrid(int size) {
+	glColor3f(0.3, 0.3, 0.3);
+	glBegin(GL_LINES);
+		for(int i = 0; i < size; i++) 
+		{
+			glVertex3f(i,  0, 0);
+			glVertex3f(i,  0, 10);
+			glVertex3f(0,  0, i);
+			glVertex3f(10, 0, i);
+		};
+	glEnd();
+}
+
 void drawAxes() {
 	// Drawing axes
 	glBegin(GL_LINES);
@@ -76,15 +89,14 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawAxes();
+	drawGrid(10);
 
 	glPushMatrix();
-
 		glRotated(alphaX, 1, 0, 0);
 		glRotated(alphaY, 0, 1, 0);
 		glRotated(alphaZ, 0, 0, 1);
 
 		escena->dibuja();
-
 	glPopMatrix();
 
 	glFlush();

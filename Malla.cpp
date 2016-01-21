@@ -47,3 +47,19 @@ PV3D* Malla::CalculoVectorNormalPorNewell(Cara *c)
 	n->normaliza();
 	return n;
 }
+
+Malla::~Malla()
+{
+	for (int i = 0; i < numVertices; i++)
+		delete vertice[i];
+	delete[] vertice;
+
+	for (int i = 0; i < numNormales; i++)
+		delete normal[i];
+	delete[] normal;
+
+	for (int i = 0; i < numCaras; i++)
+		delete cara[i];
+	delete[] cara;
+
+}

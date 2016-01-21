@@ -9,4 +9,5 @@ Objeto3D::Objeto3D()
 Objeto3D::~Objeto3D() 
 {
 	delete mt;
+	delete color;
 }
