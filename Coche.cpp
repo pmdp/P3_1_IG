@@ -20,11 +20,14 @@ Coche::Coche()
 	addObjeto(new Ficha());	
 	hijos[2]->mt->traslada(new PV3D(-1, 1.1, -1.4, 1));
 	hijos[2]->mt->rota(90, 1, 0, 0);
+	hijos[2]->mt->rota(180, 0, 1, 0);
 
 	//Trasera derecha
 	addObjeto(new Ficha());	
 	hijos[3]->mt->traslada(new PV3D(1, 1.1, -1.4, 1));
 	hijos[3]->mt->rota(90, 1, 0, 0);
+	hijos[3]->mt->rota(180, 0, 1, 0);
+
 	
 	// CHASIS ------------------------
 	addObjeto(new Cubo());
