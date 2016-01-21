@@ -4,5 +4,5 @@
 
 class Cubo : public Malla {
 public:
-	void dibuja();
+	Cubo();
 };

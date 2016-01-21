@@ -22,6 +22,23 @@ GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
 
+void drawAxes() {
+	// Drawing axes
+	glBegin(GL_LINES);
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(20, 0, 0);
+
+	glColor3f(0.0, 1.0, 0.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 20, 0);
+
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 0, 20);
+	glEnd();
+}
+
 void buildSceneObjects()  {
 	// Camara
 	PV3D* eye  = new PV3D(eyeX, eyeY, eyeZ, 1);
@@ -57,6 +74,7 @@ void initGL() {
 
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawAxes();
 
 	escena->dibuja();
 

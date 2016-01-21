@@ -15,6 +15,7 @@ void Malla::dibuja()
 					int iN = cara[i]->getIndiceNormal(j);
 					int	iV = cara[i]->getIndiceVertice(j);
 
+					glColor3f(color->getR(), color->getG(), color->getB());
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
 					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
 				}
