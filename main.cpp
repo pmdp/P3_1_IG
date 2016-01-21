@@ -24,6 +24,34 @@ GLdouble upX=0, upY=1, upZ=0;
 
 void zoom(GLdouble f);
 void drawGrid(int size, int cellSize);
+void drawAxes();
+
+void loadGame()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	drawAxes();
+	drawGrid(200,4);
+
+	glPushMatrix();
+		glRotated(alphaX, 1, 0, 0);
+		glRotated(alphaY, 0, 1, 0);
+		glRotated(alphaZ, 0, 0, 1);
+
+		escena->dibuja();
+	// Move car and rotate the wheels
+	escena->getObjeto(1)->mt->traslada(new PV3D(-.05, 0, 0, 1));
+	escena->getObjeto(1)->girar(-5);
+	
+	// Move the road while the car in mooving
+	escena->getObjeto(0)->mt->traslada(new PV3D(-.05, 0, 0, 1));
+	glPopMatrix();
+	// Move the camera while the car is mooving
+	cam->avanzaEje(-.05, 0, 0);
+	
+	glFlush();
+	glutSwapBuffers();
+	glutPostRedisplay();
+}
 
 void drawGrid(int size, int cellSize) {
     int numCells = size / cellSize;
@@ -103,7 +131,7 @@ void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawAxes();
 	drawGrid(200,4);
-	
+
 	glPushMatrix();
 		glRotated(alphaX, 1, 0, 0);
 		glRotated(alphaY, 0, 1, 0);
@@ -307,7 +335,8 @@ int main(int argc, char *argv[]){
 	glutKeyboardFunc(key);
 	glutSpecialFunc(special_key);
 	glutDisplayFunc(display);
-
+	//glutDisplayFunc(loadGame);
+	
 	// OpenGL basic setting
 	initGL();
 

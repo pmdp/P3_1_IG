@@ -29,9 +29,15 @@ Coche::Coche()
 
 	// CHASIS --------------------------------------------
 	addObjeto(new Cubo());
-	hijos[4]->mt->escala(new PV3D(2, 2, 2, 1));
+	hijos[4]->mt->escala(new PV3D(4, 2, 2, 1));
 	hijos[4]->mt->traslada(new PV3D(0, 1, 0, 1));
 	hijos[4]->color->setColor(1, 0, 0);
+
+	addObjeto(new Cubo());
+	hijos[5]->mt->escala(new PV3D(2, 2, 2, 1));
+	hijos[5]->mt->traslada(new PV3D(0.5, 2, 0, 1));
+	hijos[5]->color->setColor(1, 0, 0);
+
 	// ---------------------------------------------------
 }
 
