@@ -18,8 +18,9 @@ Coche::Coche()
 
 	// Delantera derecha
 	addObjeto(new Ficha());	
-	hijos[2]->mt->traslada(new PV3D(-1, 1.1, -1.4, 1));
-	hijos[2]->mt->rota(90, 1, 0, 0);
+	hijos[2]->mt->traslada(new PV3D(-1, 1.1, -1, 1));
+	hijos[2]->mt->rota(-90, 1, 0, 0);
+
 
 	//Trasera derecha
 	addObjeto(new Ficha());	

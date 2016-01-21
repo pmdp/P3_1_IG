@@ -102,7 +102,7 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawAxes();
-	drawGrid(200,4);
+	drawGrid(100,4);
 	
 	glPushMatrix();
 		glRotated(alphaX, 1, 0, 0);
