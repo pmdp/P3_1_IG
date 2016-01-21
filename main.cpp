@@ -124,12 +124,13 @@ void special_key(int key, int, int y)
 	case 101://up arrow
 		//glRotatef(-20, 1, 0, 0);
 		escena->getObjeto(1)->mt->traslada(new PV3D(-0.25,0,0,1));
-		//cam->
+		cam->avanzaEje(-0.25,0,0);
 		//escena->getObjeto(0)->
 		break;
 	case 103://down arrow
 		//glRotatef(20, 1, 0, 0);
 		escena->getObjeto(1)->mt->traslada(new PV3D(0.25,0,0,1));
+		cam->avanzaEje(0.25,0,0);
 		break;
 	case 102://right arrow
 		//glRotatef(20, 0, 1, 0);

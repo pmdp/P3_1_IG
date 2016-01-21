@@ -16,22 +16,22 @@ Camara::Camara(PV3D* eye, PV3D* look, PV3D* up, GLdouble r, GLdouble l, GLdouble
 	
 }
 void Camara::setUVN(){
-	//Vector n de la cámara
+	//Vector n de la cï¿½mara
 	_n = new PV3D(_eye->getX() - _look->getX(),
 		_eye->getY() - _look->getY(),
 		_eye->getZ() - _look->getZ(), 1);
 	_n->normaliza();
 
-	//Vector u de la cámara
+	//Vector u de la cï¿½mara
 	_u = _up->productoVectorial(_n);
 	_u->normaliza();
 
-	//Vector v de la cámara
+	//Vector v de la cï¿½mara
 	_v = _n->productoVectorial(_u);
 }
 
 void Camara::actualizaCamara(){
-	//Vuelve a calcular los valores de la cámara en funcion de u,v y n
+	//Vuelve a calcular los valores de la cï¿½mara en funcion de u,v y n
 	GLdouble eyex = (_u->getX()*_eye->getX()) + (_v->getX()*_eye->getY()) + (_n->getX()*_eye->getZ());
 	GLdouble eyey = (_u->getY()*_eye->getX()) + (_v->getY()*_eye->getY()) + (_n->getY()*_eye->getZ());
 	GLdouble eyez = (_u->getZ()*_eye->getX()) + (_v->getZ()*_eye->getY()) + (_n->getZ()*_eye->getZ());
@@ -73,6 +73,17 @@ void Camara::setLookAt(){
 	gluLookAt(_eye->getX(), _eye->getY(), _eye->getZ(),
 		_look->getX(), _look->getY(), _look->getZ(),
 		_up->getX(), _up->getY(), _up->getZ());
+}
+
+
+void Camara::avanzaEje(GLdouble x, GLdouble y, GLdouble z){
+	_eye->setX(_eye->getX() + x);
+	_eye->setY(_eye->getY() + y);
+	_eye->setZ(_eye->getZ() + z);
+	_look->setX(_look->getX()+ x);
+	_look->setY(_look->getY()+ y);
+	_look->setZ(_look->getZ()+ z);
+	setLookAt();
 }
 void Camara::recorridoEje(GLdouble x, GLdouble y, GLdouble z){
 	_eye->setX(_eye->getX() + x);
