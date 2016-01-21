@@ -23,8 +23,3 @@ void ObjetoCompuesto3D::addObjeto(Objeto3D* o)
 	_numHijos++;
 }
 
-void ObjetoCompuesto3D::setColorTodos(float r, float g, float b)
-{
-	for(int i = 0; i < _numHijos; i++)
-		hijos[i]->color->setColor(r, g, b);
-}

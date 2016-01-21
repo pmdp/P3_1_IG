@@ -22,6 +22,8 @@ GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
 
+void zoom(GLdouble f);
+
 void drawAxes() {
 	// Drawing axes
 	glBegin(GL_LINES);
@@ -46,7 +48,6 @@ void buildSceneObjects()  {
 	PV3D* up   = new PV3D(upX, upY, upZ, 0);
 
 	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot);
-
 	escena = new Escena();	
 }
 

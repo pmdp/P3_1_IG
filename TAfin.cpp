@@ -13,8 +13,10 @@ void TAfin::traslada(PV3D* v)
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 		glLoadIdentity();
+		//glLoadMatrixf(m);  // Puede que haya que ponerlo
 		glTranslatef(v->getX(), v->getY(), v->getZ());
 		GLfloat m1[16];
+		//Dejar la matriz actual de modelado-vista en m1
 		glGetFloatv(GL_MODELVIEW_MATRIX, m1);
 	glPopMatrix();
 
@@ -25,8 +27,9 @@ void TAfin::escala(PV3D* v)
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 		glLoadIdentity();
-		glScaled(v->getX(), v->getY(), v->getZ());
-		glGetFloatv(GL_MODELVIEW_MATRIX, m);
+		glLoadMatrixf(m);
+		glScalef(v->getX(), v->getY(), v->getZ());
+        glGetFloatv(GL_MODELVIEW_MATRIX, m);
 	glPopMatrix();
 }
 
@@ -35,9 +38,9 @@ void TAfin::rota(float angle, float x, float y, float z)
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
     	glLoadIdentity();
-    	glLoadMatrixf(m);
-        glRotated(angle, x, y, z);
-		glGetFloatv(GL_MODELVIEW_MATRIX, m);
+        glLoadMatrixf(m);
+        glRotatef(angle, x, y, z);
+        glGetFloatv(GL_MODELVIEW_MATRIX, m);
 	glPopMatrix();
 }
 
@@ -45,8 +48,8 @@ void TAfin::postMultiplica(GLfloat* m1)
 {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
-		glLoadMatrixf(m); 
-		glMultMatrixf(m1);
-		glGetFloatv(GL_MODELVIEW_MATRIX, m); 
+		glLoadMatrixf(m); //Cargar m como matriz actual de modelado-vista
+		glMultMatrixf(m1); //Post-multiplicar por m1
+		glGetFloatv(GL_MODELVIEW_MATRIX, m); //Dejar el resultado en m
 	glPopMatrix();
 }

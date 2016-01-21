@@ -5,10 +5,6 @@
 #include "Esfera.h"
 
 class Farola : public ObjetoCompuesto3D {
-	Cilindro* _base;
-	Esfera*	 _cabeza;
-
 public:
 	Farola();
-	void dibuja();
 };

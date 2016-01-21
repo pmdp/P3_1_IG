@@ -1,10 +1,14 @@
 #include "Autopista.h"
-#include <iostream>
-using namespace std;
 
-//Autopista::Autopista()
-//{
-	//_carretera1 = new Tablero(10, 1, 1);
-	//_carretera2 = new Tablero(2, 3, 10);
-//}
+Autopista::Autopista()
+{
+	int ancho = 5;
+	int alto = 1;
+	int largo = 100;
+	
+	this->addObjeto(new Tablero(largo, alto, ancho));
+	hijos[0]->mt->traslada(new PV3D(0, 0, -3, 1));
+	this->addObjeto(new Tablero(largo, alto, ancho));
+	hijos[1]->mt->traslada(new PV3D(0, 0, ancho+2, 1));
+}
 

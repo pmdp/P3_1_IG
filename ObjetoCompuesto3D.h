@@ -12,6 +12,5 @@ public:
 	ObjetoCompuesto3D();
 	void dibuja();
 	void addObjeto(Objeto3D* o);
-	void setColorTodos(float r, float g, float b);
 };
 

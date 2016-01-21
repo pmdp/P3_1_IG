@@ -1,6 +1,8 @@
 #pragma once
 
 #include <GL/glu.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
 #include "ObjetoCuadrico.h"
 
 class Cilindro : public ObjetoCuadrico

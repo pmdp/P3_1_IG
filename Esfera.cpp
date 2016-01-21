@@ -12,6 +12,10 @@ Esfera::Esfera(float radio, float slices, float stacks)
 
 void Esfera::dibuja()
 {
-	glColor3f(color->getR(), color->getG(), color->getB());
-	gluSphere(_esfera, _radio, _slices, _stacks);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+		glMultMatrixf(this->mt->m);
+		glColor3f(color->getR(), color->getG(), color->getB());
+		gluSphere(_esfera, _radio, _slices, _stacks);
+	glPopMatrix();
 }

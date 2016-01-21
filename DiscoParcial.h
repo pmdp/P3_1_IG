@@ -2,7 +2,9 @@
 
 #include "ObjetoCuadrico.h"
 
-class DiscoParcial: public ObjetoCuadrico {
+class DiscoParcial: public ObjetoCuadrico
+{
 public:
+	DiscoParcial();
 	void dibuja();
 };

@@ -14,6 +14,11 @@ Cilindro::Cilindro(float radio1, float radio2, float alto, float slices, float s
 
 void Cilindro::dibuja()
 {
-	glColor3f(color->getR(), color->getG(), color->getB());
-	gluCylinder(_cilindro, _radio1, _radio2, _alto, _slices, _stacks);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+		glMultMatrixf(this->mt->m);
+		glColor3f(color->getR(), color->getG(), color->getB());
+		gluCylinder(_cilindro, _radio1, _radio2, _alto, _slices, _stacks);
+	glPopMatrix();
+
 }
