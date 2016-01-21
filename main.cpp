@@ -23,18 +23,31 @@ GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
 
 void zoom(GLdouble f);
+void drawGrid(int size, int cellSize);
 
-void drawGrid(int size) {
-	glColor3f(0.3, 0.3, 0.3);
-	glBegin(GL_LINES);
-		for(int i = 0; i < size; i++) 
-		{
-			glVertex3f(i,  0, 0);
-			glVertex3f(i,  0, 10);
-			glVertex3f(0,  0, i);
-			glVertex3f(10, 0, i);
-		};
-	glEnd();
+void drawGrid(int size, int cellSize) {
+    int numCells = size / cellSize;
+    PV3D* p1 = new PV3D(size / 2, 0, size / 2, 1);
+    PV3D* p2 = new PV3D(size / 2, 0, -size / 2, 1);
+    glBegin(GL_LINES);
+        glColor3f(0, 0, 1);
+        for (int j = 0; j <= numCells; j++) {
+            glVertex3f(p1->getX(), 0, p1->getZ());
+            glVertex3f(p2->getX(), 0, p2->getZ());
+            p1->setX(p1->getX() - cellSize);
+            p2->setX(p2->getX() - cellSize);
+        }
+        p1->setX(size / 2);
+        p1->setZ(size / 2);
+        p2->setX(-size / 2);
+        p2->setZ(size / 2);
+        for (int j = 0; j <= numCells; j++) {
+            glVertex3f(p1->getX(), 0, p1->getZ());
+            glVertex3f(p2->getX(), 0, p2->getZ());
+            p1->setZ(p1->getZ() - cellSize);
+            p2->setZ(p2->getZ() - cellSize);
+    }
+    glEnd();
 }
 
 void drawAxes() {
@@ -89,8 +102,8 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawAxes();
-	drawGrid(10);
-
+	drawGrid(200,4);
+	
 	glPushMatrix();
 		glRotated(alphaX, 1, 0, 0);
 		glRotated(alphaY, 0, 1, 0);
