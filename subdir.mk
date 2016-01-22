@@ -24,6 +24,7 @@ CPP_SRCS += \
 ../Quesito.cpp \
 ../TAfin.cpp \
 ../Tablero.cpp \
+../Tree.cpp \
 ../main.cpp 
 
 OBJS += \
@@ -47,6 +48,7 @@ OBJS += \
 ./Quesito.o \
 ./TAfin.o \
 ./Tablero.o \
+./Tree.o \
 ./main.o 
 
 CPP_DEPS += \
@@ -70,6 +72,7 @@ CPP_DEPS += \
 ./Quesito.d \
 ./TAfin.d \
 ./Tablero.d \
+./Tree.d \
 ./main.d 
 
 

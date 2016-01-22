@@ -21,6 +21,7 @@ public:
 	Camara(PV3D* eye, PV3D* look, PV3D* up, GLdouble r, GLdouble l, GLdouble t, GLdouble b);
 	~Camara();
 	void setLookAt();
+	void setLookAt(PV3D* look);
 	void avanzaEje(GLdouble x, GLdouble y, GLdouble z);
 	void setUVN();
 	void actualizaCamara();

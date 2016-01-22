@@ -62,3 +62,4 @@ Malla::~Malla()
 		delete cara[i];
 	delete[] cara;
 }
+
