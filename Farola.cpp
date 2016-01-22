@@ -11,5 +11,4 @@ Farola::Farola()
     addObjeto(new Esfera(1, 15, 15));
 	hijos[1]->color->setColor(0.5, 0.5, 0);
 	hijos[1]->mt->traslada(new PV3D(0, altura, 0, 1));
-
 }
