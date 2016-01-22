@@ -22,60 +22,45 @@ GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
 
+//Light Boolean
+bool light1On = true;
+
+//Prototypes
 void zoom(GLdouble f);
 void drawGrid(int size, int cellSize);
-void drawAxes();
 
-void loadGame()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	drawAxes();
-	drawGrid(200,4);
 
-	glPushMatrix();
-		glRotated(alphaX, 1, 0, 0);
-		glRotated(alphaY, 0, 1, 0);
-		glRotated(alphaZ, 0, 0, 1);
-
-		escena->dibuja();
-	// Move car and rotate the wheels
-	escena->getObjeto(1)->mt->traslada(new PV3D(-.05, 0, 0, 1));
-	escena->getObjeto(1)->girar(-5);
-	
-	// Move the road while the car in mooving
-	escena->getObjeto(0)->mt->traslada(new PV3D(-.05, 0, 0, 1));
-	glPopMatrix();
-	// Move the camera while the car is mooving
-	cam->avanzaEje(-.05, 0, 0);
-	
-	glFlush();
-	glutSwapBuffers();
-	glutPostRedisplay();
-}
 
 void drawGrid(int size, int cellSize) {
-    int numCells = size / cellSize;
-    PV3D* p1 = new PV3D(size / 2, 0, size / 2, 1);
-    PV3D* p2 = new PV3D(size / 2, 0, -size / 2, 1);
-    glBegin(GL_LINES);
-        glColor3f(0, 0, 1);
-        for (int j = 0; j <= numCells; j++) {
-            glVertex3f(p1->getX(), 0, p1->getZ());
-            glVertex3f(p2->getX(), 0, p2->getZ());
-            p1->setX(p1->getX() - cellSize);
-            p2->setX(p2->getX() - cellSize);
-        }
-        p1->setX(size / 2);
-        p1->setZ(size / 2);
-        p2->setX(-size / 2);
-        p2->setZ(size / 2);
-        for (int j = 0; j <= numCells; j++) {
-            glVertex3f(p1->getX(), 0, p1->getZ());
-            glVertex3f(p2->getX(), 0, p2->getZ());
-            p1->setZ(p1->getZ() - cellSize);
-            p2->setZ(p2->getZ() - cellSize);
-    }
-    glEnd();
+	glBegin(GL_POLYGON);
+	glColor3f(0,0.2,0.1);
+		glVertex3f(size/2,0,size/2);
+		glVertex3f(size/2,0,-size/2);
+		glVertex3f(-size/2,0,-size/2);
+		glVertex3f(-size/2,0,size/2);
+	glEnd();
+//    int numCells = size / cellSize;
+//    PV3D* p1 = new PV3D(size / 2, 0, size / 2, 1);
+//    PV3D* p2 = new PV3D(size / 2, 0, -size / 2, 1);
+//    glBegin(GL_LINES);
+//        glColor3f(0, 0, 1);
+//        for (int j = 0; j <= numCells; j++) {
+//            glVertex3f(p1->getX(), 0, p1->getZ());
+//            glVertex3f(p2->getX(), 0, p2->getZ());
+//            p1->setX(p1->getX() - cellSize);
+//            p2->setX(p2->getX() - cellSize);
+//        }
+//        p1->setX(size / 2);
+//        p1->setZ(size / 2);
+//        p2->setX(-size / 2);
+//        p2->setZ(size / 2);
+//        for (int j = 0; j <= numCells; j++) {
+//            glVertex3f(p1->getX(), 0, p1->getZ());
+//            glVertex3f(p2->getX(), 0, p2->getZ());
+//            p1->setZ(p1->getZ() - cellSize);
+//            p2->setZ(p2->getZ() - cellSize);
+//    }
+//    glEnd();
 }
 
 void drawAxes() {
@@ -115,14 +100,25 @@ void initGL() {
 	glEnable(GL_NORMALIZE);
 	glShadeModel(GL_SMOOTH);
 
-	// Light0
-	glEnable(GL_LIGHT0);
-	GLfloat d[] = { 1.0, 1.0, 1.0, 1.0 };
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
-	GLfloat a[] = { 0.3f, 0.3f, 0.3f, 1.0 };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
-	GLfloat p[] = { 25.0, 25.0, 0.0, 1.0 };
-	glLightfv(GL_LIGHT0, GL_POSITION, p);
+//	// Light0
+//	glEnable(GL_LIGHT0);
+//	GLfloat d[] = { 1.0, 1.0, 1.0, 1.0 };
+//	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
+//	GLfloat a[] = { 0.3f, 0.3f, 0.3f, 1.0 };
+//	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
+//	GLfloat p[] = { 25.0, 25.0, 0.0, 1.0 };
+//	glLightfv(GL_LIGHT0, GL_POSITION, p);
+	//Light1
+	glEnable(GL_LIGHT1);
+	GLfloat d1[] = { 1.0, 1.0, 1.0, 1.0 };
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, d1);
+	GLfloat a1[] = { 0.3f, 0.3f, 0.3f, 1.0 };
+	glLightfv(GL_LIGHT1, GL_AMBIENT, a1);
+	GLfloat p1[] = { 0, 10, 10, 1.0 };
+	glLightfv(GL_LIGHT1, GL_POSITION, p1);
+//	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
+//	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
+//	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
 
 	buildSceneObjects();
 }
@@ -130,8 +126,8 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	drawAxes();
-	drawGrid(200,4);
-
+	drawGrid(100,4);
+	
 	glPushMatrix();
 		glRotated(alphaX, 1, 0, 0);
 		glRotated(alphaY, 0, 1, 0);
@@ -185,11 +181,11 @@ void special_key(int key, int, int y)
 		cam->avanzaEje(0.25,0,0);
 		break;
 	case 102://right arrow
-		//escena->getObjeto(1)->mt->traslada(new PV3D(0, 0, -1, 1));
+		//glRotatef(20, 0, 1, 0);
 		escena->getObjeto(1)->mt->rota(-10,0,1,0);
 		break;
 	case 100://left arrow
-		//escena->getObjeto(1)->mt->traslada(new PV3D(0, 0, 1, 1));
+		//glRotatef(-20, 0, 1, 0);
 		escena->getObjeto(1)->mt->rota(10,0,1,0);
 		break;
 	default:
@@ -310,6 +306,19 @@ void key(unsigned char key, int x, int y){
 		case 110://n
 			cam->pitch(2.0);
 			break;
+		case 32://espacio
+			glutFullScreenToggle();
+			break;
+		case 108://l
+			if(light1On){
+				glDisable(GL_LIGHT1);
+				light1On = false;
+			}
+			else{
+				glEnable(GL_LIGHT1);
+				light1On = true;
+			}
+			break;
 		default:
 			need_redisplay = false;
 			break;
@@ -335,8 +344,7 @@ int main(int argc, char *argv[]){
 	glutKeyboardFunc(key);
 	glutSpecialFunc(special_key);
 	glutDisplayFunc(display);
-	//glutDisplayFunc(loadGame);
-	
+
 	// OpenGL basic setting
 	initGL();
 

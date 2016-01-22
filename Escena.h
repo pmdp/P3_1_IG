@@ -4,6 +4,7 @@
 #include "Autopista.h"
 #include "Farola.h"
 #include "Coche.h"
+#include "Tree.h"
 
 class Escena : public ObjetoCompuesto3D {
 public:

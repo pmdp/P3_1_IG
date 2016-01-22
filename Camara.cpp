@@ -75,6 +75,11 @@ void Camara::setLookAt(){
 		_up->getX(), _up->getY(), _up->getZ());
 }
 
+void Camara::setLookAt(PV3D* look){
+	_look->setX(look->getX());
+	_look->setY(look->getY());
+	setLookAt();
+}
 
 void Camara::avanzaEje(GLdouble x, GLdouble y, GLdouble z){
 	_eye->setX(_eye->getX() + x);
