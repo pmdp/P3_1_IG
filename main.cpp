@@ -11,27 +11,26 @@ Escena* escena;
 
 // Viewport size
 int WIDTH= 800, HEIGHT= 600;
-GLdouble alphaX=0, alphaY=0, alphaZ=0;
+
 Camara* cam;
 
 // Viewing frustum parameters
-GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
-
+	GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
 // Camera parameters
-GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
-GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
-GLdouble upX=0, upY=1, upZ=0;
+	GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
+	GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
+	GLdouble upX=0, upY=1, upZ=0;
 
 //Light Boolean
 bool light1On = true;
 
 //Prototypes
-void zoom(GLdouble f);
-void drawGrid(int size, int cellSize);
+void zoom (GLdouble f);
+void drawGround(int size);
 
 
 
-void drawGrid(int size, int cellSize) {
+void drawGround(int size) {
 	glBegin(GL_POLYGON);
 	glColor3f(0,0.2,0.1);
 		glVertex3f(size/2,0,size/2);
@@ -39,54 +38,15 @@ void drawGrid(int size, int cellSize) {
 		glVertex3f(-size/2,0,-size/2);
 		glVertex3f(-size/2,0,size/2);
 	glEnd();
-//    int numCells = size / cellSize;
-//    PV3D* p1 = new PV3D(size / 2, 0, size / 2, 1);
-//    PV3D* p2 = new PV3D(size / 2, 0, -size / 2, 1);
-//    glBegin(GL_LINES);
-//        glColor3f(0, 0, 1);
-//        for (int j = 0; j <= numCells; j++) {
-//            glVertex3f(p1->getX(), 0, p1->getZ());
-//            glVertex3f(p2->getX(), 0, p2->getZ());
-//            p1->setX(p1->getX() - cellSize);
-//            p2->setX(p2->getX() - cellSize);
-//        }
-//        p1->setX(size / 2);
-//        p1->setZ(size / 2);
-//        p2->setX(-size / 2);
-//        p2->setZ(size / 2);
-//        for (int j = 0; j <= numCells; j++) {
-//            glVertex3f(p1->getX(), 0, p1->getZ());
-//            glVertex3f(p2->getX(), 0, p2->getZ());
-//            p1->setZ(p1->getZ() - cellSize);
-//            p2->setZ(p2->getZ() - cellSize);
-//    }
-//    glEnd();
-}
-
-void drawAxes() {
-	// Drawing axes
-	glBegin(GL_LINES);
-	glColor3f(1.0, 0.0, 0.0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(20, 0, 0);
-
-	glColor3f(0.0, 1.0, 0.0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 20, 0);
-
-	glColor3f(0.0, 0.0, 1.0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0, 20);
-	glEnd();
 }
 
 void buildSceneObjects()  {
-	// Camara
+	//Cámara
 	PV3D* eye  = new PV3D(eyeX, eyeY, eyeZ, 1);
 	PV3D* look = new PV3D(lookX, lookY, lookZ, 0);
 	PV3D* up   = new PV3D(upX, upY, upZ, 0);
+	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot,N,F);
 
-	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot);
 	escena = new Escena();	
 }
 
@@ -108,6 +68,7 @@ void initGL() {
 //	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
 //	GLfloat p[] = { 25.0, 25.0, 0.0, 1.0 };
 //	glLightfv(GL_LIGHT0, GL_POSITION, p);
+
 	//Light1
 	glEnable(GL_LIGHT1);
 	GLfloat d1[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -125,14 +86,10 @@ void initGL() {
 
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	drawAxes();
-	drawGrid(100,4);
-	
-	glPushMatrix();
-		glRotated(alphaX, 1, 0, 0);
-		glRotated(alphaY, 0, 1, 0);
-		glRotated(alphaZ, 0, 0, 1);
 
+	drawGround(100);
+
+	glPushMatrix();
 		escena->dibuja();
 	glPopMatrix();
 
@@ -166,19 +123,22 @@ void resize(int newWidth, int newHeight) {
 	glLoadIdentity();
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
+
+
+
 void special_key(int key, int, int y)
 {
 	bool need_redisplay = true;
 	switch (key) {
 	case 101://up arrow
-		escena->getObjeto(1)->mt->traslada(new PV3D(-0.25,0,0,1));
-		escena->getObjeto(1)->girar(10);
-		cam->avanzaEje(-0.25,0,0);
+		escena->getObjeto(1)->mt->traslada(new PV3D(-0.5,0,0,1));
+		escena->getObjeto(1)->girar(15);
+		cam->setLookAt(new PV3D(-0.5,0,0,1), escena->getObjeto(1)->mt->getPos());
 		break;
 	case 103://down arrow
-		escena->getObjeto(1)->mt->traslada(new PV3D(0.25,0,0,1));
-		escena->getObjeto(1)->girar(-10);
-		cam->avanzaEje(0.25,0,0);
+		escena->getObjeto(1)->mt->traslada(new PV3D(0.5,0,0,1));
+		escena->getObjeto(1)->girar(-15);
+		cam->setLookAt(new PV3D(0.5,0,0,1), escena->getObjeto(1)->mt->getPos());
 		break;
 	case 102://right arrow
 		//glRotatef(20, 0, 1, 0);
@@ -196,22 +156,6 @@ void special_key(int key, int, int y)
 		glutPostRedisplay();
 }
 
-void zoom (GLdouble f) {
-	GLdouble anchoNew = (xRight - xLeft) / f;
-	GLdouble altoNew = (yTop - yBot) / f;
-	GLdouble centroX = (xLeft + xRight) / 2.0;
-	GLdouble centroY = (yTop + yBot) / 2.0;
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glOrtho(centroX-anchoNew/2.0, centroX+anchoNew/2.0, centroY-altoNew/2.0, centroY+altoNew/2.0, N, F);
-	display();
-	
-	xLeft = centroX - anchoNew / 2.0;
-	xRight = centroX + anchoNew / 2.0;
-	yBot = centroY - altoNew / 2.0;
-	yTop = centroY + altoNew / 2.0;
-}
 
 void key(unsigned char key, int x, int y){
 	bool need_redisplay = true;
@@ -226,22 +170,22 @@ void key(unsigned char key, int x, int y){
 			zoom(0.75);
 			break;
 		case 97://a
-			alphaX += 20;
+
 			break;
 		case 122://z
-			alphaX -= 20;
+
 			break;
 		case 115://s
-			alphaY += 20;
+
 			break;
 		case 120://x
-			alphaY -= 20;
+
 			break;
 		case 100://d
-			alphaZ += 20;
+
 			break;
 		case 99://c
-			alphaZ -= 20;
+
 			break;
 		case 101://e
 			cam->recorridoEje(-7, 0, 0);
@@ -327,6 +271,24 @@ void key(unsigned char key, int x, int y){
 	if (need_redisplay)
 		glutPostRedisplay();
 }
+
+void zoom (GLdouble f) {
+	GLdouble anchoNew = (xRight - xLeft) / f;
+	GLdouble altoNew = (yTop - yBot) / f;
+	GLdouble centroX = (xLeft + xRight) / 2.0;
+	GLdouble centroY = (yTop + yBot) / 2.0;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(centroX-anchoNew/2.0, centroX+anchoNew/2.0, centroY-altoNew/2.0, centroY+altoNew/2.0, N, F);
+	display();
+
+	xLeft = centroX - anchoNew / 2.0;
+	xRight = centroX + anchoNew / 2.0;
+	yBot = centroY - altoNew / 2.0;
+	yTop = centroY + altoNew / 2.0;
+}
+
 int main(int argc, char *argv[]){
 	cout<< "Starting console..." << endl;
 

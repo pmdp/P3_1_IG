@@ -59,3 +59,7 @@ void TAfin::postMultiplica(GLfloat* m1)
 		glGetFloatv(GL_MODELVIEW_MATRIX, m); //Dejar el resultado en m
 	glPopMatrix();
 }
+
+PV3D* TAfin::getPos(){
+	return new PV3D(m[12],m[13],m[14],m[15]);
+}
