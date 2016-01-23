@@ -4,7 +4,7 @@
 ObjetoCompuesto3D::ObjetoCompuesto3D()
 {
 	_numHijos = 0;
-	hijos = new Objeto3D*[5000];
+	hijos = new Objeto3D*[50000];
 }
 
 void ObjetoCompuesto3D::dibuja()

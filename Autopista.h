@@ -5,5 +5,5 @@
 
 class Autopista : public ObjetoCompuesto3D {
 public:
-	Autopista();
+	Autopista(GLfloat escenaSize);
 };

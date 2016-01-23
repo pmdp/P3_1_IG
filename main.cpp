@@ -4,15 +4,17 @@
 
 #include "Camara.h"
 #include "Escena.h"
+#include <cmath>
+#include <unistd.h>
 #include <iostream>
 using namespace std;
 
-Escena* escena;
 
 // Viewport size
 int WIDTH= 800, HEIGHT= 600;
 
 Camara* cam;
+Escena* escena;
 
 // Viewing frustum parameters
 	GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
@@ -26,19 +28,7 @@ bool light1On = true;
 
 //Prototypes
 void zoom (GLdouble f);
-void drawGround(int size);
 
-
-
-void drawGround(int size) {
-	glBegin(GL_POLYGON);
-	glColor3f(0,0.2,0.1);
-		glVertex3f(size/2,0,size/2);
-		glVertex3f(size/2,0,-size/2);
-		glVertex3f(-size/2,0,-size/2);
-		glVertex3f(-size/2,0,size/2);
-	glEnd();
-}
 
 void buildSceneObjects()  {
 	//Cámara
@@ -47,7 +37,7 @@ void buildSceneObjects()  {
 	PV3D* up   = new PV3D(upX, upY, upZ, 0);
 	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot,N,F);
 
-	escena = new Escena();	
+	escena = new Escena(200.0);
 }
 
 void initGL() {
@@ -87,7 +77,6 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	drawGround(100);
 
 	glPushMatrix();
 		escena->dibuja();
@@ -124,29 +113,55 @@ void resize(int newWidth, int newHeight) {
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
 
-
+void choqueCoche(){
+	PV3D* pCoche = escena->coche->mt->getPos();
+	for (int i = 0; i < escena->numFarolas; i++){
+		Farola* f = escena->farolas[i];
+		PV3D* pFarola = f->mt->getPos();
+		if((abs(pCoche->getX()-pFarola->getX()) < 2) &&
+				(abs(pCoche->getZ()-pFarola->getZ()) < 2) &&
+					!f->caida){
+			f->mt->rota(90,1,0,0);
+			f->caida = true;
+		}
+	}
+	for (int i = 0; i < escena->numTrees; i++){
+			Tree* t = escena->trees[i];
+			PV3D* pTree = t->mt->getPos();
+			if((abs(pCoche->getX()-pTree->getX()) < 2)
+				&& (abs(pCoche->getZ()-pTree->getZ()) < 2) &&
+						!t->caido){
+				t->mt->rota(90,1,0,0);
+				t->caido = true;
+			}
+		}
+	if(pCoche->getX() > escena->escenaSize/2)
+		escena->coche->mt->traslada(new PV3D(-escena->escenaSize/2,0,pCoche->getZ()+5,1));
+	else if (abs(pCoche->getZ()) > escena->escenaSize/2){
+		//escena->coche->mt->traslada(new PV3D(0,,0,1));
+	}
+}
 
 void special_key(int key, int, int y)
 {
 	bool need_redisplay = true;
 	switch (key) {
 	case 101://up arrow
-		escena->getObjeto(1)->mt->traslada(new PV3D(-0.5,0,0,1));
-		escena->getObjeto(1)->girar(15);
-		cam->setLookAt(new PV3D(-0.5,0,0,1), escena->getObjeto(1)->mt->getPos());
+		escena->coche->mt->traslada(new PV3D(-1,0,0,1));
+		escena->coche->girar(15);
+		cam->setLookAt(new PV3D(-1,0,0,1), escena->coche->mt->getPos());
+		choqueCoche();
 		break;
 	case 103://down arrow
-		escena->getObjeto(1)->mt->traslada(new PV3D(0.5,0,0,1));
+		escena->getObjeto(1)->mt->traslada(new PV3D(1,0,0,1));
 		escena->getObjeto(1)->girar(-15);
-		cam->setLookAt(new PV3D(0.5,0,0,1), escena->getObjeto(1)->mt->getPos());
+		cam->setLookAt(new PV3D(1,0,0,1), escena->coche->mt->getPos());
 		break;
 	case 102://right arrow
-		//glRotatef(20, 0, 1, 0);
-		escena->getObjeto(1)->mt->rota(-10,0,1,0);
+		escena->coche->mt->rota(-10,0,1,0);
 		break;
 	case 100://left arrow
-		//glRotatef(-20, 0, 1, 0);
-		escena->getObjeto(1)->mt->rota(10,0,1,0);
+		escena->coche->mt->rota(10,0,1,0);
 		break;
 	default:
 		need_redisplay = false;
@@ -306,7 +321,6 @@ int main(int argc, char *argv[]){
 	glutKeyboardFunc(key);
 	glutSpecialFunc(special_key);
 	glutDisplayFunc(display);
-
 	// OpenGL basic setting
 	initGL();
 

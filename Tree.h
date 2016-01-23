@@ -6,5 +6,6 @@
 class Tree : public ObjetoCompuesto3D {
 public:
 	Tree(float height);
+	bool caido;
 };
 
