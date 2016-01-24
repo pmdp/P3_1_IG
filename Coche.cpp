@@ -5,6 +5,8 @@
 
 Coche::Coche() 
 {
+	glEnable(GL_TEXTURE_2D);
+
 	texture[0] = SOIL_load_OGL_texture
 	("carbon.jpg",
 	SOIL_LOAD_AUTO,

@@ -12,7 +12,6 @@ private:
 public:
 	Coche();
 	void girar(float angle);
-	void loadTextures();
 	PV3D* vDireccion;
 	Cilindro* faro1;
 	Cilindro* faro2;
