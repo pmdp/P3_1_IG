@@ -65,6 +65,8 @@ void buildSceneObjects()  {
 void initGL() {
 	glClearColor(0.6f,0.7f,0.8f,1.0);
     glEnable(GL_LIGHTING);
+    glEnable(GL_TEXTURE_2D);
+
 
 	glEnable(GL_COLOR_MATERIAL);
 	glMaterialf(GL_FRONT, GL_SHININESS, 0.1f);
@@ -92,8 +94,7 @@ void initGL() {
 	glLightfv(GL_LIGHT1, GL_SPECULAR, esp0);
 	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
 	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 4.0);
-	GLfloat dir[]={0.0, -1.0, 0.0};
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
+
 
 	//Luces coche
 	glEnable(GL_LIGHT2);
@@ -104,15 +105,14 @@ void initGL() {
 
 	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 45.0);
 	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 4.0);
-	GLfloat dir2[]={-1.0, 0.0, 0.0};
-	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dir2);
+
 
 	glEnable(GL_LIGHT3);
 	glLightfv(GL_LIGHT3, GL_DIFFUSE, d2);
 	glLightfv(GL_LIGHT3, GL_AMBIENT, a2);
 	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 45.0);
 	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 4.0);
-	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, dir2);
+
 
 	//Luz remota direccional 45º
 	glEnable(GL_LIGHT4);
@@ -133,11 +133,18 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-	glLightfv(GL_LIGHT1, GL_POSITION, p1);//luz farola
+	//luz farola
+	glLightfv(GL_LIGHT1, GL_POSITION, p1);
+	GLfloat dir[]={0.0, -1.0, 0.0};
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
+	//Luces del coche, posición y dirección
 	glLightfv(GL_LIGHT2, GL_POSITION, p2);//luz1 coche
 	glLightfv(GL_LIGHT3, GL_POSITION, p3);//luz2 coche
-	glLightfv(GL_LIGHT4, GL_POSITION, p4);//luz remota direccional 45
+	GLfloat dir2[]={-1.0, 0.0, 0.0};
+	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dir2);
+	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, dir2);
+	//luz remota direccional 45
+	glLightfv(GL_LIGHT4, GL_POSITION, p4);
 
 	escena->dibuja();
 
