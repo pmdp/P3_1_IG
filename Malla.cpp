@@ -32,9 +32,10 @@ void Malla::dibuja()
 							glTexCoord2i(1,1); 
 						if (j == 3)
 							glTexCoord2i(1,0); 
-					} else {
-						glColor3f(color->getR(), color->getG(), color->getB());
+					
 					}
+					glColor3f(color->getR(), color->getG(), color->getB());
+					
 
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
 					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
