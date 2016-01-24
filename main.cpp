@@ -22,31 +22,6 @@ GLuint	texture[1];
 
 void zoom (GLdouble f);
 
-void applyTexture() {
-	GLuint texturas[2];
-    glGenTextures(2,texturas);
- 
-    glEnable(GL_TEXTURE_2D);
- 
-    //Leer archivo
-    int width = 1024;
-    int height = 768;
-    unsigned char* image = SOIL_load_image("carbon.jpg", &width, &height, 0, SOIL_LOAD_RGB);
- 
-    glBindTexture(GL_TEXTURE_2D, texturas[0]);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glTexImage2D(GL_TEXTURE_2D, 2, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-
-
-	glEnable(GL_TEXTURE_2D);
-	cubo = new Cubo(2, texturas, 4);
-	cubo->color->setColor(1, 0, 0);
-}
-
 int LoadGLTextures()
 {
 	texture[0] = SOIL_load_OGL_texture
