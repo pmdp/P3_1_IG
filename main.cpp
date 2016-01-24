@@ -7,6 +7,7 @@
 #include <cmath>
 #include <unistd.h>
 #include <iostream>
+
 using namespace std;
 
 
@@ -25,12 +26,14 @@ Escena* escena;
 
 //Farola Position Light
 GLfloat p1[4];
+GLfloat dir[]={0.0, -1.0, 0.0};
 bool light1On = true;
 
 //Luces coche position
 GLfloat p2[4];
 GLfloat p3[4];
 bool lightCoche = true;
+GLfloat dir2[3];
 
 //Luz direccional remota 45
 GLfloat p4[4];
@@ -60,12 +63,13 @@ void buildSceneObjects()  {
 	p2[0] = luz1->getX()-1;p2[1] = luz1->getY(); p2[2]= luz1->getZ(); p2[3]= 1.0;
 	PV3D* luz2 = escena->coche->faro2->mt->getPos();
 	p3[0] = luz2->getX()-1;p3[1] = luz2->getY(); p3[2]= luz2->getZ(); p3[3]= 1.0;
+	dir2[0] = -1.0; dir2[1] =  0.0; dir2[2] =  0.0;
 }
 
 void initGL() {
 	glClearColor(0.6f,0.7f,0.8f,1.0);
     glEnable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
+   // glEnable(GL_TEXTURE_2D);
 
 
 	glEnable(GL_COLOR_MATERIAL);
@@ -135,12 +139,11 @@ void display(void) {
 
 	//luz farola
 	glLightfv(GL_LIGHT1, GL_POSITION, p1);
-	GLfloat dir[]={0.0, -1.0, 0.0};
+
 	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
 	//Luces del coche, posición y dirección
 	glLightfv(GL_LIGHT2, GL_POSITION, p2);//luz1 coche
 	glLightfv(GL_LIGHT3, GL_POSITION, p3);//luz2 coche
-	GLfloat dir2[]={-1.0, 0.0, 0.0};
 	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dir2);
 	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, dir2);
 	//luz remota direccional 45
@@ -219,7 +222,10 @@ void special_key(int key, int, int y)
 		escena->coche->mt->traslada(new PV3D(-1,0,0,1));
 		escena->coche->girar(15);
 		cam->setLookAt(new PV3D(-1,0,0,1), escena->coche->mt->getPos());
-		p2[0]--;p3[0]--;//Avanza luces coche
+		p2[0] = escena->coche->faro1->mt->getPos()->getX()-1;
+		p2[2] = escena->coche->faro1->mt->getPos()->getZ();
+		p3[0] = escena->coche->faro2->mt->getPos()->getX()-1;//Avanza luces coche
+		p3[2] = escena->coche->faro2->mt->getPos()->getZ();
 		choqueCoche();
 		break;
 	case 103://down arrow

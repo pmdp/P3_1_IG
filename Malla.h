@@ -16,6 +16,9 @@ protected:
 	PV3D** normal;
 	int numCaras;
 	Cara** cara;
+	GLuint* textura;
+	int numTexturas;
+	int numCaraTextura;
 
 public:
 	~Malla();

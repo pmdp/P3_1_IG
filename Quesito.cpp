@@ -7,6 +7,7 @@ using namespace std;
 Quesito::Quesito(int nq, int r, int a) 
 : _nq(nq), _radio(r), _altura(a)
 {
+	numTexturas = -1;
 	int m = 3;//numero de puntos en el perfil original
 
 	PV3D** perfil = new PV3D*[m];//perfil original en el plano xy
