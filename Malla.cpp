@@ -1,4 +1,6 @@
 ﻿#include "Malla.h"
+#include <iostream>
+using namespace std;
 
 void Malla::dibuja()
 {
@@ -10,12 +12,30 @@ void Malla::dibuja()
 		{	
 			glLineWidth(1.0);
 			glBegin(GL_POLYGON);
+			
+				if (numTexturas == -1) {
+					cout << "entra" << endl;
+					glBindTexture(GL_TEXTURE_2D, textura[0]);
+					cout << "sale" << endl;
+				}
 				for (int j = 0; j < cara[i]->getNumVertices(); j++)	
 				{
 					int iN = cara[i]->getIndiceNormal(j);
 					int	iV = cara[i]->getIndiceVertice(j);
 
-					glColor3f(color->getR(), color->getG(), color->getB());
+					if (numTexturas != -1) {
+						if (j == 0)
+							glTexCoord2i(0,0); 
+						if (j == 1)
+							glTexCoord2i(0,1); 
+						if (j == 2)
+							glTexCoord2i(1,1); 
+						if (j == 3)
+							glTexCoord2i(1,0); 
+					} else {
+						glColor3f(color->getR(), color->getG(), color->getB());
+					}
+
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
 					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
 				}
@@ -23,6 +43,7 @@ void Malla::dibuja()
 		}
 
 	glPopMatrix();
+
 }
 
 PV3D* Malla::CalculoVectorNormalPorNewell(Cara *c) 
