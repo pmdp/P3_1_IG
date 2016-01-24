@@ -16,11 +16,16 @@ protected:
 	PV3D** normal;
 	int numCaras;
 	Cara** cara;
+	GLuint* texturas;
+	int numTexturas;
+	int numCaraTextura;
 
 public:
 	~Malla();
 	void dibuja();
 	virtual void girar(float angle) {}
+	void glGenTextures(unsigned int size, GLuint* texturas);
+	void glDeleteTextures(unsigned int size, GLuint* texturas); 
 	PV3D* CalculoVectorNormalPorNewell(Cara *c);
 };
 

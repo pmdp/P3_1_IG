@@ -1,72 +1,41 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
-
+#include "Cubo.h"
 #include "Camara.h"
-#include "Escena.h"
-#include <cmath>
-#include <unistd.h>
 #include <iostream>
+#include "SOIL.h"
 using namespace std;
 
 
 // Viewport size
 int WIDTH= 800, HEIGHT= 600;
 
+GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
+GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
+GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
+GLdouble upX=0, upY=1, upZ=0;
+
+Cubo* cubo;
 Camara* cam;
-Escena* escena;
 
-// Viewing frustum parameters
-	GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
-// Camera parameters
-	GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
-	GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
-	GLdouble upX=0, upY=1, upZ=0;
-
-//Farola Position Light
-GLfloat p1[4];
-bool light1On = true;
-
-//Luces coche position
-GLfloat p2[4];
-GLfloat p3[4];
-bool lightCoche = true;
-
-//Luz direccional remota 45
-GLfloat p4[4];
-bool lightRemota = true;
-
-//Luz ambiente global
-bool lightGlobal = true;
-//Prototypes
 void zoom (GLdouble f);
 
+void buildSceneObjects() {
+	cubo = new Cubo();
+	cubo->color->setColor(1, 0, 0);
 
-void buildSceneObjects()  {
 	//Cámara
 	PV3D* eye  = new PV3D(eyeX, eyeY, eyeZ, 1);
 	PV3D* look = new PV3D(lookX, lookY, lookZ, 0);
 	PV3D* up   = new PV3D(upX, upY, upZ, 0);
 	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot,N,F);
-
-	escena = new Escena(200.0);
-
-	//Farola light position
-	PV3D* pFarola = escena->farolas[escena->numFarolas/2]->mt->getPos();
-	p1[0] = pFarola->getX(); p1[1] = pFarola->getY()+15; p1[2] = pFarola->getZ(); p1[3] = 1.0;
-
-	//Car Lights Position
-	PV3D* luz1 = escena->coche->faro1->mt->getPos();
-	p2[0] = luz1->getX()-1;p2[1] = luz1->getY(); p2[2]= luz1->getZ(); p2[3]= 1.0;
-	PV3D* luz2 = escena->coche->faro2->mt->getPos();
-	p3[0] = luz2->getX()-1;p3[1] = luz2->getY(); p3[2]= luz2->getZ(); p3[3]= 1.0;
 }
 
 void initGL() {
 	glClearColor(0.6f,0.7f,0.8f,1.0);
     glEnable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
-
 
 	glEnable(GL_COLOR_MATERIAL);
 	glMaterialf(GL_FRONT, GL_SHININESS, 0.1f);
@@ -75,78 +44,23 @@ void initGL() {
 	glShadeModel(GL_SMOOTH);
 
 
-//	// Light0
-//	glEnable(GL_LIGHT0);
-//	GLfloat d[] = { 1.0, 1.0, 1.0, 1.0 };
-//	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
-//	GLfloat a[] = { 0.3f, 0.3f, 0.3f, 1.0 };
-//	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
-//	GLfloat p[] = { 25.0, 25.0, 0.0, 1.0 };
-//	glLightfv(GL_LIGHT0, GL_POSITION, p);
-
-	//Light farola
-	glEnable(GL_LIGHT1);
-	GLfloat d[] = { 1.0, 0.0, 0, 1.0 };
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, d);
-	GLfloat a[] = { 1.0, 0.0, 0.0, 1.0 };
-	glLightfv(GL_LIGHT1, GL_AMBIENT, a);
-	GLfloat esp0[] = {1.0,0.0,0.0,1.0};
-	glLightfv(GL_LIGHT1, GL_SPECULAR, esp0);
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
-	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 4.0);
-
-
-	//Luces coche
-	glEnable(GL_LIGHT2);
-	GLfloat d2[] = { 1.0, 1.0, 1.0, 1.0 };
-	glLightfv(GL_LIGHT2, GL_DIFFUSE, d2);
-	GLfloat a2[] = { 0.3f, 0.3f, 0.3f, 1.0 };
-	glLightfv(GL_LIGHT2, GL_AMBIENT, a2);
-
-	glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 45.0);
-	glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 4.0);
-
-
-	glEnable(GL_LIGHT3);
-	glLightfv(GL_LIGHT3, GL_DIFFUSE, d2);
-	glLightfv(GL_LIGHT3, GL_AMBIENT, a2);
-	glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 45.0);
-	glLightf(GL_LIGHT3, GL_SPOT_EXPONENT, 4.0);
-
-
-	//Luz remota direccional 45º
-	glEnable(GL_LIGHT4);
-	GLfloat d4[] = { 1.0, 1.0, 1.0, 1.0 };
-	glLightfv(GL_LIGHT4, GL_DIFFUSE, d4);
-	GLfloat a4[] = { 0.3f, 0.3f, 0.3f, 1.0 };
-	glLightfv(GL_LIGHT4, GL_AMBIENT, a4);
-	p4[0] = 30.0; p4[1] = 30.0; p4[2] = 30.0; p4[3] = 0.0;
-
-//	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
-//	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
-//	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
+	// Light0
+	glEnable(GL_LIGHT0);
+	GLfloat d[] = { 1.0, 1.0, 1.0, 1.0 };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
+	GLfloat a[] = { 0.3f, 0.3f, 0.3f, 1.0 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, a);
+	GLfloat p[] = { 25.0, 25.0, 0.0, 1.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, p);
 
 	buildSceneObjects();
-
 }
+
 
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//luz farola
-	glLightfv(GL_LIGHT1, GL_POSITION, p1);
-	GLfloat dir[]={0.0, -1.0, 0.0};
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
-	//Luces del coche, posición y dirección
-	glLightfv(GL_LIGHT2, GL_POSITION, p2);//luz1 coche
-	glLightfv(GL_LIGHT3, GL_POSITION, p3);//luz2 coche
-	GLfloat dir2[]={-1.0, 0.0, 0.0};
-	glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, dir2);
-	glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, dir2);
-	//luz remota direccional 45
-	glLightfv(GL_LIGHT4, GL_POSITION, p4);
-
-	escena->dibuja();
+	cubo->dibuja();
 
 	glFlush();
 	glutSwapBuffers();
@@ -179,61 +93,17 @@ void resize(int newWidth, int newHeight) {
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
 
-void choqueCoche(){
-	PV3D* pCoche = escena->coche->mt->getPos();
-	for (int i = 0; i < escena->numFarolas; i++){
-		Farola* f = escena->farolas[i];
-		PV3D* pFarola = f->mt->getPos();
-		if((abs(pCoche->getX()-pFarola->getX()) < 2) &&
-				(abs(pCoche->getZ()-pFarola->getZ()) < 2) &&
-					!f->caida){
-			f->mt->rota(90,0,0,1);
-			f->caida = true;
-			if(i == escena->numFarolas/2)
-				glDisable(GL_LIGHT1);
-		}
-	}
-	for (int i = 0; i < escena->numTrees; i++){
-			Tree* t = escena->trees[i];
-			PV3D* pTree = t->mt->getPos();
-			if((abs(pCoche->getX()-pTree->getX()) < 2)
-				&& (abs(pCoche->getZ()-pTree->getZ()) < 2) &&
-						!t->caido){
-				t->mt->rota(90,0,0,1);
-				t->caido = true;
-			}
-		}
-//	if(abs(pCoche->getX()) > escena->escenaSize/2
-//			|| (abs(pCoche->getZ()) > escena->escenaSize/2)){
-//		escena->coche->mt->traslada(new PV3D(0,0,0,1));
-//		cam->setLookAt(new PV3D(5,5,5,1), escena->coche->mt->getPos());
-//		glutPostRedisplay();
-//	}
-}
-
 void special_key(int key, int, int y)
 {
 	bool need_redisplay = true;
 	switch (key) {
 	case 101://up arrow
-		escena->coche->mt->traslada(new PV3D(-1,0,0,1));
-		escena->coche->girar(15);
-		cam->setLookAt(new PV3D(-1,0,0,1), escena->coche->mt->getPos());
-		p2[0]--;p3[0]--;//Avanza luces coche
-		choqueCoche();
 		break;
 	case 103://down arrow
-		escena->coche->mt->traslada(new PV3D(1,0,0,1));
-		escena->coche->girar(-15);
-		cam->setLookAt(new PV3D(1,0,0,1), escena->coche->mt->getPos());
-		p2[0]++;p3[0]++;//Mueve luces coche
-		choqueCoche();
 		break;
 	case 102://right arrow
-		escena->coche->mt->rota(-10,0,1,0);
 		break;
 	case 100://left arrow
-		escena->coche->mt->rota(10,0,1,0);
 		break;
 	default:
 		need_redisplay = false;
@@ -257,41 +127,13 @@ void key(unsigned char key, int x, int y){
 			zoom(0.75);
 			break;
 		case 97://a
-			if(lightCoche){
-				glDisable(GL_LIGHT2);
-				glDisable(GL_LIGHT3);
-				lightCoche = false;
-			}
-			else{
-				glEnable(GL_LIGHT2);
-				glEnable(GL_LIGHT3);
-				lightCoche = true;
-			}
 			break;
 		case 122://z
-			if(lightRemota){
-				glDisable(GL_LIGHT4);
-				lightRemota = false;
-				}
-				else{
-				glEnable(GL_LIGHT4);
-				lightRemota = true;
-				}
 			break;
 		case 115://s
 
 			break;
 		case 120://x
-			if(lightGlobal){
-				GLfloat amb[] = {0.0,0.0,0.0,1.0};
-				glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
-				lightGlobal = false;
-			}
-			else{
-				GLfloat amb[] = {0.2,0.2,0.2,1.0};
-				glLightModelfv(GL_LIGHT_MODEL_AMBIENT, amb);
-				lightGlobal = true;
-			}
 			break;
 		case 100://d
 
@@ -366,14 +208,6 @@ void key(unsigned char key, int x, int y){
 			glutFullScreenToggle();
 			break;
 		case 108://l
-			if(light1On){
-				glDisable(GL_LIGHT1);
-				light1On = false;
-			}
-			else{
-				glEnable(GL_LIGHT1);
-				light1On = true;
-			}
 			break;
 		default:
 			need_redisplay = false;

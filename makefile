@@ -45,7 +45,7 @@ all: main
 main: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross G++ Linker'
-	g++  -o "Practica3" $(OBJS) $(USER_OBJS) $(LIBS)
+	g++  -o "Practica3" $(OBJS) $(USER_OBJS) $(LIBS) 
 	@echo 'Finished building target: $@'
 	@echo ' '
 

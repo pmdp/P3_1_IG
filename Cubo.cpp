@@ -1,7 +1,20 @@
 #include "Cubo.h"
 #include <GL/glut.h>
 
-Cubo::Cubo() 
+Cubo::Cubo(int numText, GLuint* tex, int numCaraTex)
+{
+	numTexturas = numText;
+	texturas = tex;
+	numCaraTextura = numCaraTex;
+	initCube();	
+}
+
+Cubo::Cubo()
+{
+	numTexturas = -1;
+	initCube();
+}
+void Cubo::initCube()
 {
 	//Crea Malla del Cubo
 	numVertices = 8;
