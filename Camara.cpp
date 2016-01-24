@@ -2,9 +2,10 @@
 #include <iostream>
 using namespace std;
 
-Camara::Camara(PV3D* eye, PV3D* look, PV3D* up, GLdouble r, GLdouble l, GLdouble t, GLdouble b)
-: _eye(eye), _look(look), _up(up), _right(r), _left(l), _top(t), _botton(b), _near(1), _far(1000)
+Camara::Camara(PV3D* eye, PV3D* look, PV3D* up, GLdouble r, GLdouble l, GLdouble t, GLdouble b, GLdouble N,GLdouble F)
+: _eye(eye), _look(look), _up(up), _right(r), _left(l), _top(t), _botton(b), _near(N), _far(F)
 {	
+
 	_fovy = 10;
 	_aspect = 1;
 	setLookAt();
@@ -54,8 +55,8 @@ void Camara::actualizaCamara(){
 void Camara::perspectiva(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	//glFrustum(_left, _right, _botton, _top, _near, _far);
-	gluPerspective(_fovy, _aspect, _near, _far);
+	glFrustum(_left, _right, _botton, _top, _near, _far);
+	//gluPerspective(_fovy, _aspect, _near, _far);
 }
 void Camara::ortogonal(){
 	glMatrixMode(GL_PROJECTION);
@@ -67,6 +68,23 @@ Camara::~Camara()
 {
 	
 }
+
+void Camara::setLookAt(PV3D* eye, PV3D* look){
+	_eye->setX(_eye->getX()+eye->getX());
+	_eye->setY(_eye->getY()+eye->getY());
+	_eye->setZ(_eye->getZ()+eye->getZ());
+//	_look->setX(_look->getX()+look->getX());
+//	_look->setY(_look->getY()+look->getY());
+//	_look->setZ(_look->getZ()+look->getZ());
+	_look->setX(look->getX());
+	_look->setY(look->getY());
+	_look->setZ(look->getZ());
+
+	setLookAt();
+	setUVN();
+
+
+}
 void Camara::setLookAt(){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -74,13 +92,13 @@ void Camara::setLookAt(){
 		_look->getX(), _look->getY(), _look->getZ(),
 		_up->getX(), _up->getY(), _up->getZ());
 }
-
-void Camara::setLookAt(PV3D* look){
-	_look->setX(look->getX());
-	_look->setY(look->getY());
-	setLookAt();
-}
-
+ void Camara::setPosEye(PV3D* eye){
+	 _eye->setX(eye->getX());
+	 _eye->setY(eye->getY());
+	 _eye->setZ(eye->getZ());
+	 setLookAt();
+	 setUVN();
+ }
 void Camara::avanzaEje(GLdouble x, GLdouble y, GLdouble z){
 	_eye->setX(_eye->getX() + x);
 	_eye->setY(_eye->getY() + y);
@@ -89,30 +107,37 @@ void Camara::avanzaEje(GLdouble x, GLdouble y, GLdouble z){
 	_look->setY(_look->getY()+ y);
 	_look->setZ(_look->getZ()+ z);
 	setLookAt();
+	setUVN();
 }
 void Camara::recorridoEje(GLdouble x, GLdouble y, GLdouble z){
 	_eye->setX(_eye->getX() + x);
 	_eye->setY(_eye->getY() + y);
 	_eye->setZ(_eye->getZ() + z);
+
 	setLookAt();
+	setUVN();
 }
+
 void Camara::giraX(){
 	_tX += 10;
 	_eye->setY(_r*cos(_tX*(M_PI/180)));
 	_eye->setZ(_r*sin(_tX*(M_PI/180)));
 	setLookAt();
+	setUVN();
 }
 void Camara::giraY(){
 	_tY += 10;
 	_eye->setX(_r*cos(_tY*(M_PI / 180)));
 	_eye->setZ(_r*sin(_tY*(M_PI / 180)));
 	setLookAt();
+	setUVN();
 }
 void Camara::giraZ(){
 	_tZ += 10;
 	_eye->setX(_r*cos(_tZ*(M_PI / 180)));
 	_eye->setY(_r*sin(_tZ*(M_PI / 180)));
 	setLookAt();
+	setUVN();
 }
 void Camara::setModelViewMatrix() {
 	
@@ -125,7 +150,7 @@ void Camara::setModelViewMatrix() {
 	V[3] = 0;		   V[7] = 0; 		  V[11] = 0; 		  V[15] = 1.0;
 
 	glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
+	glLoadIdentity();
 	glLoadMatrixd(V);
 }
 // Cambiar matriz de vista, gluLookAt hace lo mismo pero no actualiza los valores
@@ -148,7 +173,6 @@ void Camara::roll(GLdouble angulo){ //Gira respecto a n
 	_v->setZ(-sn * u->getZ() + cs * _v->getZ());
 
 	setModelViewMatrix();
-	
 }
 
 void Camara::yaw(GLdouble angulo){ //Gira respecto a v
@@ -218,3 +242,4 @@ void Camara::esquina(){
 	setLookAt();
 	setUVN();
 }
+

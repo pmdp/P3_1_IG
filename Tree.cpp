@@ -2,6 +2,7 @@
 
 Tree::Tree(float height) 
 {
+	caido = false;
 	//Adds trunk
 	addObjeto(new Cilindro(height/(height+6), height/(height+6), height, 10, 10));
 	hijos[0]->mt->rota(-90, 1, 0, 0);

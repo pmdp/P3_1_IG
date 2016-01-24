@@ -8,5 +8,13 @@
 
 class Escena : public ObjetoCompuesto3D {
 public:
-	Escena();
+	Escena(GLfloat escenaSize);
+	Cubo* ground;
+	Coche* coche;
+	Autopista* autopista;
+	int numFarolas;
+	Farola** farolas;
+	int numTrees;
+	Tree** trees;
+	GLfloat escenaSize;
 };

@@ -7,4 +7,5 @@
 class Farola : public ObjetoCompuesto3D {
 public:
 	Farola();
+	bool caida;
 };

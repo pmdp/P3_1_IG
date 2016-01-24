@@ -11,6 +11,7 @@ public:
 	void rota(float angle, float x, float y, float z);
 	void escala(PV3D* v);
 	void postMultiplica(GLfloat* m1);
+	PV3D* getPos();
 	GLfloat m[16];
 };
 
