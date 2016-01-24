@@ -12,6 +12,9 @@ void Malla::dibuja()
 		{	
 			glLineWidth(1.0);
 			glBegin(GL_POLYGON);
+			
+				glBindTexture(GL_TEXTURE_2D, texturas[0]);
+		
 				for (int j = 0; j < cara[i]->getNumVertices(); j++)	
 				{
 					int iN = cara[i]->getIndiceNormal(j);
@@ -19,20 +22,19 @@ void Malla::dibuja()
 
 					if (numTexturas != -1) {
 						cout << "Si textura" << endl;
-						glEnable(GL_TEXTURE_2D);
-						glBindTexture(GL_TEXTURE_2D, numTexturas);
-						glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-						if (i == 0)
+
+						if (j == 0)
 							glTexCoord2i(0,0); 
-						if (i == 1)
+						if (j == 1)
 							glTexCoord2i(0,1); 
-						if (i == 2)
+						if (j == 2)
 							glTexCoord2i(1,1); 
-						if (i == 3)
+						if (j == 3)
 							glTexCoord2i(1,0); 
+					} else {
+						glColor3f(color->getR(), color->getG(), color->getB());
 					}
 
-					glColor3f(color->getR(), color->getG(), color->getB());
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
 					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
 				}
