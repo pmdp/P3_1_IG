@@ -1,4 +1,6 @@
 ﻿#include "Malla.h"
+#include <iostream>
+using namespace std;
 
 void Malla::dibuja()
 {
@@ -14,6 +16,21 @@ void Malla::dibuja()
 				{
 					int iN = cara[i]->getIndiceNormal(j);
 					int	iV = cara[i]->getIndiceVertice(j);
+
+					if (numTexturas != -1) {
+						cout << "Si textura" << endl;
+						glEnable(GL_TEXTURE_2D);
+						glBindTexture(GL_TEXTURE_2D, numTexturas);
+						glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+						if (i == 0)
+							glTexCoord2i(0,0); 
+						if (i == 1)
+							glTexCoord2i(0,1); 
+						if (i == 2)
+							glTexCoord2i(1,1); 
+						if (i == 3)
+							glTexCoord2i(1,0); 
+					}
 
 					glColor3f(color->getR(), color->getG(), color->getB());
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());

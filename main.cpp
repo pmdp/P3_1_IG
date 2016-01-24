@@ -18,6 +18,7 @@ GLdouble upX=0, upY=1, upZ=0;
 
 Cubo* cubo;
 Camara* cam;
+GLuint	texture[1];
 
 void zoom (GLdouble f);
 
@@ -38,23 +39,85 @@ void applyTexture() {
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glTexImage2D(GL_TEXTURE_2D, 2, GL_RGB, width,
-	height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 2, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+
+
+	glEnable(GL_TEXTURE_2D);
+	cubo = new Cubo(2, texturas, 4);
+	cubo->color->setColor(1, 0, 0);
+}
+
+int LoadGLTextures()
+{
+	texture[0] = SOIL_load_OGL_texture
+	("carbon.jpg",
+	SOIL_LOAD_AUTO,
+	SOIL_CREATE_NEW_ID,
+	SOIL_FLAG_INVERT_Y
+	);
+
+	if(texture[0] == 0)
+		return false;
+
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+
+	return true;										
+}
+
+void drawExample() {
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glBegin(GL_QUADS);
+
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+
+		glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.0f, -1.0f, -1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.0f,  1.0f, -1.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f( 1.0f,  1.0f,  1.0f);
+		glTexCoord2f(0.0f, 0.0f); glVertex3f( 1.0f, -1.0f,  1.0f);
+
+		glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.0f, -1.0f, -1.0f);
+		glTexCoord2f(1.0f, 0.0f); glVertex3f(-1.0f, -1.0f,  1.0f);
+		glTexCoord2f(1.0f, 1.0f); glVertex3f(-1.0f,  1.0f,  1.0f);
+		glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.0f,  1.0f, -1.0f);
+
+	glEnd();
 }
 
 void buildSceneObjects() {
-	cubo = new Cubo();
-	applyTexture();
-	cubo->color->setColor(1, 0, 0);
+	//applyTexture();
 
 	//Cámara
 	PV3D* eye  = new PV3D(eyeX, eyeY, eyeZ, 1);
 	PV3D* look = new PV3D(lookX, lookY, lookZ, 0);
 	PV3D* up   = new PV3D(upX, upY, upZ, 0);
 	cam = new Camara(eye, look, up, xRight, xLeft, yTop, yBot,N,F);
+
+	//applyTexture();
 }
 
 void initGL() {
+	LoadGLTextures();	
+
 	glClearColor(0.6f,0.7f,0.8f,1.0);
     glEnable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
@@ -82,7 +145,8 @@ void initGL() {
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	cubo->dibuja();
+	//cubo->dibuja();
+	drawExample();
 
 	glFlush();
 	glutSwapBuffers();
