@@ -8,8 +8,9 @@ Autopista::Autopista(GLfloat escenaSize)
 	GLfloat largo = escenaSize;
 	
 	this->addObjeto(new Tablero(largo, alto, ancho));
-	hijos[0]->mt->traslada(new PV3D(0, 0, -ancho-2, 1));
+	hijos[0]->mt->traslada(new PV3D(0, -0.2, -ancho-2, 1));
 	this->addObjeto(new Tablero(largo, alto, ancho));
-	hijos[1]->mt->traslada(new PV3D(0, 0, ancho+2, 1));
+	hijos[1]->mt->traslada(new PV3D(0, -0.2, ancho+2, 1));
+
 }
 

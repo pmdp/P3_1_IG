@@ -5,25 +5,26 @@
 
 Coche::Coche() 
 {
+	vDireccion = new PV3D(-1,0,0,0);
 	// RUEDAS -------------------------------------------
 	// Delantera izquierda
 	addObjeto(new Ficha());
-	hijos[0]->mt->traslada(new PV3D(-1, 1.2, 1, 1));
+	hijos[0]->mt->traslada(new PV3D(-1, 1, 1, 1));
 	hijos[0]->mt->rota(90, 1, 0, 0);
 
 	// Trasera izquierda
 	addObjeto(new Ficha());	
-	hijos[1]->mt->traslada(new PV3D(1, 1.2, 1, 1));
+	hijos[1]->mt->traslada(new PV3D(1, 1, 1, 1));
 	hijos[1]->mt->rota(90, 1, 0, 0);
 
 	// Delantera derecha
 	addObjeto(new Ficha());	
-	hijos[2]->mt->traslada(new PV3D(-1, 1.2, -1, 1));
+	hijos[2]->mt->traslada(new PV3D(-1, 1, -1, 1));
 	hijos[2]->mt->rota(-90, 1, 0, 0);
 
 	//Trasera derecha
 	addObjeto(new Ficha());	
-	hijos[3]->mt->traslada(new PV3D(1, 1.2, -1, 1));
+	hijos[3]->mt->traslada(new PV3D(1, 1, -1, 1));
 	hijos[3]->mt->rota(-90, 1, 0, 0);
 	// ---------------------------------------------------
 
@@ -39,6 +40,19 @@ Coche::Coche()
 	hijos[5]->color->setColor(1, 0, 0);
 
 	// ---------------------------------------------------
+
+	faro1 = new Cilindro(0.09,0.4,0.5,10,10);
+	addObjeto(faro1);
+	faro1->mt->traslada(new PV3D(-2,1.5,0.7,1));
+	faro1->mt->rota(-90,0,1,0);
+	faro1->color->setColor(0.5,0.5,0);
+	faro2 = new Cilindro(0.09,0.4,0.5,10,10);
+	addObjeto(faro2);
+	faro2->mt->traslada(new PV3D(-2,1.5,-0.7,1));
+	faro2->mt->rota(-90,0,1,0);
+	faro2->color->setColor(0.5,0.5,0);
+
+
 }
 
 void Coche::girar(float angle) 
