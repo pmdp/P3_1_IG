@@ -25,6 +25,7 @@ CPP_SRCS += \
 ../TAfin.cpp \
 ../Tablero.cpp \
 ../Tree.cpp \
+../TextureLoader.cpp \
 ../main.cpp 
 
 OBJS += \
@@ -49,6 +50,7 @@ OBJS += \
 ./TAfin.o \
 ./Tablero.o \
 ./Tree.o \
+./TextureLoader.o \
 ./main.o 
 
 CPP_DEPS += \
@@ -73,6 +75,7 @@ CPP_DEPS += \
 ./TAfin.d \
 ./Tablero.d \
 ./Tree.d \
+./TextureLoader.d \
 ./main.d 
 
 
