@@ -64,6 +64,8 @@ void buildSceneObjects()  {
 	PV3D* luz2 = escena->coche->faro2->mt->getPos();
 	p3[0] = luz2->getX()-1;p3[1] = luz2->getY(); p3[2]= luz2->getZ(); p3[3]= 1.0;
 	dir2[0] = -1.0; dir2[1] =  0.0; dir2[2] =  0.0;
+
+	cam->setLookAt(new PV3D(0,0,0,0), escena->coche->mt->getPos());
 }
 
 void initGL() {
@@ -187,8 +189,8 @@ void choqueCoche(){
 	for (int i = 0; i < escena->numFarolas; i++){
 		Farola* f = escena->farolas[i];
 		PV3D* pFarola = f->mt->getPos();
-		if((abs(pCoche->getX()-pFarola->getX()) < 2) &&
-				(abs(pCoche->getZ()-pFarola->getZ()) < 2) &&
+		if((abs(pCoche->getX()-pFarola->getX()) < 6) &&
+				(abs(pCoche->getZ()-pFarola->getZ()) < 6) &&
 					!f->caida){
 			f->mt->rota(90,0,0,1);
 			f->caida = true;
@@ -199,8 +201,8 @@ void choqueCoche(){
 	for (int i = 0; i < escena->numTrees; i++){
 			Tree* t = escena->trees[i];
 			PV3D* pTree = t->mt->getPos();
-			if((abs(pCoche->getX()-pTree->getX()) < 2)
-				&& (abs(pCoche->getZ()-pTree->getZ()) < 2) &&
+			if((abs(pCoche->getX()-pTree->getX()) < 6)
+				&& (abs(pCoche->getZ()-pTree->getZ()) < 6) &&
 						!t->caido){
 				t->mt->rota(90,0,0,1);
 				t->caido = true;
@@ -222,10 +224,11 @@ void special_key(int key, int, int y)
 		escena->coche->mt->traslada(new PV3D(-1,0,0,1));
 		escena->coche->girar(15);
 		cam->setLookAt(new PV3D(-1,0,0,1), escena->coche->mt->getPos());
-		p2[0] = escena->coche->faro1->mt->getPos()->getX()-1;
-		p2[2] = escena->coche->faro1->mt->getPos()->getZ();
-		p3[0] = escena->coche->faro2->mt->getPos()->getX()-1;//Avanza luces coche
-		p3[2] = escena->coche->faro2->mt->getPos()->getZ();
+		p2[0]--; p3[0]--;
+//		p2[0] = escena->coche->faro1->mt->getPos()->getX()-1;
+//		p2[2] = escena->coche->faro1->mt->getPos()->getZ();
+//		p3[0] = escena->coche->faro2->mt->getPos()->getX()-1;//Avanza luces coche
+//		p3[2] = escena->coche->faro2->mt->getPos()->getZ();
 		choqueCoche();
 		break;
 	case 103://down arrow

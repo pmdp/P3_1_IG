@@ -12,7 +12,6 @@ public:
 	Objeto3D();
 	virtual ~Objeto3D();
 	virtual void dibuja() = 0;
-	virtual void girar(float angle) {}
 	Color* color;
 	TAfin* mt;
 };

@@ -4,6 +4,12 @@
 #include <GL/glu.h>
 #include "ObjetoCompuesto3D.h"
 #include "Cilindro.h"
+#include "Chasis.h"
+#include "Volante.h"
+#include "Puerta.h"
+#include "Ficha.h"
+#include "Cubo.h"
+#include "PV3D.h"
 
 class Coche : public ObjetoCompuesto3D {
 private:
@@ -13,6 +19,11 @@ public:
 	Coche();
 	void girar(float angle);
 	PV3D* vDireccion;
+	Chasis* chasis;
+	Puerta* puertaIzq;
+	Puerta* puertaDrch;
+	Volante* volante;
+	Ficha** ruedas;
 	Cilindro* faro1;
 	Cilindro* faro2;
 };
