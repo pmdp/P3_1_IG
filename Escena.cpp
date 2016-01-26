@@ -43,3 +43,9 @@ Escena::Escena(GLfloat escenaSiz)
 		}
 	}
 }
+
+Escena::~Escena()
+{
+	delete[] farolas;
+	delete[] trees;
+}

@@ -9,6 +9,7 @@
 class Escena : public ObjetoCompuesto3D {
 public:
 	Escena(GLfloat escenaSize);
+	~Escena();
 	Cubo* ground;
 	Coche* coche;
 	Autopista* autopista;
