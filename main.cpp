@@ -190,7 +190,7 @@ void choqueCoche(){
 		Farola* f = escena->farolas[i];
 		PV3D* pFarola = f->mt->getPos();
 		if((abs(pCoche->getX()-pFarola->getX()) < 6) &&
-				(abs(pCoche->getZ()-pFarola->getZ()) < 6) &&
+				(abs(pCoche->getZ()-pFarola->getZ()) < 3) &&
 					!f->caida){
 			f->mt->rota(90,0,0,1);
 			f->caida = true;
@@ -202,7 +202,7 @@ void choqueCoche(){
 			Tree* t = escena->trees[i];
 			PV3D* pTree = t->mt->getPos();
 			if((abs(pCoche->getX()-pTree->getX()) < 6)
-				&& (abs(pCoche->getZ()-pTree->getZ()) < 6) &&
+				&& (abs(pCoche->getZ()-pTree->getZ()) < 3) &&
 						!t->caido){
 				t->mt->rota(90,0,0,1);
 				t->caido = true;
@@ -306,7 +306,7 @@ void key(unsigned char key, int x, int y){
 
 			break;
 		case 99://c
-
+			escena->coche->openCloseDoors();
 			break;
 		case 101://e
 			cam->recorridoEje(-7, 0, 0);

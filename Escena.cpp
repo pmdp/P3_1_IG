@@ -10,6 +10,7 @@ Escena::Escena(GLfloat escenaSiz)
 	addObjeto(ground);
 
 	coche = new Coche();
+	coche->mt->traslada(new PV3D(0.0,0.0,-6.0,1));
 	addObjeto(coche);
 	autopista = new Autopista(escenaSize);
 	addObjeto(autopista);

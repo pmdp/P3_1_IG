@@ -8,7 +8,9 @@
 #include "Chasis.h"
 
 Chasis::Chasis() {
-	//Crea Malla del Cubo
+
+		//numTexturas=-1;
+		//Crea Malla del Chasis
 		numVertices = 42;
 		numCaras = 27;
 		numNormales = numCaras;

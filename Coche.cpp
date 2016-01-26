@@ -71,33 +71,50 @@ Coche::Coche()
 	// FAROS ---------------------------------------------
 	faro1 = new Cilindro(0.09,0.4,0.5,10,10);
 	addObjeto(faro1);
-	faro1->mt->traslada(new PV3D(-5.5,1,0.1,1));
+	faro1->mt->traslada(new PV3D(-6.5,2.2,1.8,1));
 	faro1->mt->rota(-90,0,1,0);
 	faro1->color->setColor(0.5,0.5,0);
 	faro2 = new Cilindro(0.09,0.4,0.5,10,10);
 	addObjeto(faro2);
-	faro2->mt->traslada(new PV3D(-5.5,1,-1,1));
+	faro2->mt->traslada(new PV3D(-6.5,2.2,-1.8,1));
 	faro2->mt->rota(-90,0,1,0);
 	faro2->color->setColor(0.5,0.5,0);
 	// ---------------------------------------------------
 
+	//CHASIS ---------------------------------------------
 	chasis = new Chasis();
 	addObjeto(chasis);
 	chasis->mt->escala(new PV3D(0.6,0.6,0.6,1));
 	chasis->color->setColor(1.0,0.0,0.0);
-	chasis->mt->traslada(new PV3D(0,2.2,0,1));
+	chasis->mt->traslada(new PV3D(0,2.4,0,1));
+	// ---------------------------------------------------
 
+	// PUERTAS -------------------------------------------
+	doorsOpen = false;
 	puertaIzq = new Puerta();
 	puertaIzq->mt->escala(new PV3D(0.6,0.6,0.6,1));
+	puertaIzq->mt->traslada(new PV3D(-3.0,2.2,4.0,1));
 	puertaIzq->color->setColor(1.0,0.0,0.0);
 	addObjeto(puertaIzq);
-
 	puertaDrch = new Puerta();
 	puertaDrch->mt->escala(new PV3D(0.6,0.6,0.6,1));
+	puertaDrch->mt->traslada(new PV3D(-3.0,2.2,-4.0,1));
 	puertaDrch->color->setColor(1.0,0.0,0.0);
-	addObjeto(puertaIzq);
+	addObjeto(puertaDrch);
 }
 
+void Coche::openCloseDoors(){
+	if(!doorsOpen){
+		puertaIzq->mt->rota(-60,0,1,0);
+		puertaDrch->mt->rota(60,0,1,0);
+		doorsOpen = true;
+	}
+	else{
+		puertaIzq->mt->rota(60,0,1,0);
+		puertaDrch->mt->rota(-60,0,1,0);
+		doorsOpen = false;
+	}
+}
 void Coche::girar(float angle) 
 {
 	for (int i = 0; i < 4; i++)

@@ -8,7 +8,8 @@
 #include "Puerta.h"
 
 Puerta::Puerta() {
-	//Crea Malla del Cubo
+		numTexturas = -1;
+		//Crea Malla de la puerta
 		numVertices = 5;
 		numCaras = 1;
 		numNormales = numCaras;
@@ -19,9 +20,9 @@ Puerta::Puerta() {
 
 		vertice[0] = new PV3D(0.0, 0.0, 0.0, 1);
 		vertice[1] = new PV3D(6.0, 0.0, 0.0, 1);
-		vertice[2] = new PV3D(6.0, 6.0, 0.5, 1);
-		vertice[3] = new PV3D(2.0, 6.0, 0.5, 1);
-		vertice[4] = new PV3D(0.0, 3.0, 0.5, 1);
+		vertice[2] = new PV3D(6.0, 6.0, 0.0, 1);
+		vertice[3] = new PV3D(2.0, 6.0, 0.0, 1);
+		vertice[4] = new PV3D(0.0, 3.0, 0.0, 1);
 
 		//Cara 1
 		VerticeNormal** vn1 = new VerticeNormal*[5];
