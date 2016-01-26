@@ -65,8 +65,7 @@ void buildSceneObjects()  {
 void initGL() {
 	glClearColor(0.6f,0.7f,0.8f,1.0);
     glEnable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
-
+    //glEnable(GL_TEXTURE_2D);
 
 	glEnable(GL_COLOR_MATERIAL);
 	glMaterialf(GL_FRONT, GL_SHININESS, 0.1f);

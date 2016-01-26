@@ -8,16 +8,18 @@ void Malla::dibuja()
 	glPushMatrix();
 	glMultMatrixf(mt->m);
 
+		if (numTexturas != -1) {
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D,textura[0]);
+			glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		}  
+
 		for (int i = 0; i < numCaras; i++) 
 		{	
 			glLineWidth(1.0);
 			glBegin(GL_POLYGON);
 			
-				if (numTexturas != -1) {
-					glEnable(GL_TEXTURE_2D);
-					glBindTexture(GL_TEXTURE_2D,textura[0]);
-					glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-				}
+
 				for (int j = 0; j < cara[i]->getNumVertices(); j++)	
 				{
 					int iN = cara[i]->getIndiceNormal(j);
@@ -39,14 +41,14 @@ void Malla::dibuja()
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
 					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
 				}
+
+
 			glEnd();
 		}
 
+		if (numTexturas != -1)
+			glDisable(GL_TEXTURE_2D);
 	glPopMatrix();
-
-	if (numTexturas != -1)
-		glDisable(GL_TEXTURE_2D);
-
 }
 
 PV3D* Malla::CalculoVectorNormalPorNewell(Cara *c) 
