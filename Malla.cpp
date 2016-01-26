@@ -35,6 +35,17 @@ void Malla::dibuja()
 							glTexCoord2i(1,0); 
 					
 					}
+					if(colourMaterial){
+						glEnable(GL_COLOR_MATERIAL);
+							glColorMaterial(GL_FRONT, GL_AMBIENT);
+							glColor4f(0.25,0.25,0.25,0.5);
+							glColorMaterial(GL_FRONT, GL_DIFFUSE);
+							glColor4f(0.4,0.4,0.4,0.5);
+							glColorMaterial(GL_FRONT, GL_SPECULAR);
+							glColor4f(0.774597,0.774597,0.774597,0.5);
+						//GLfloat shin[1] = {128.0};
+						//glMaterialfv(GL_FRONT, GL_SHININESS, shin);
+					}
 					glColor3f(color->getR(), color->getG(), color->getB());
 					glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
 					glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());

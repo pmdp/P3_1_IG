@@ -14,12 +14,12 @@
 class Coche : public ObjetoCompuesto3D {
 private:
 	GLuint texture[1];
-	bool doorsOpen;
 
 public:
 	Coche();
 	void girar(float angle);
-	void openCloseDoors();
+	void openDoors(int angle);
+	void closeDoors(int angle);
 	PV3D* vDireccion;
 	Chasis* chasis;
 	Puerta* puertaIzq;

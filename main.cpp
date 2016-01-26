@@ -34,6 +34,9 @@ GLfloat p2[4];
 GLfloat p3[4];
 bool lightCoche = true;
 GLfloat dir2[3];
+//Opened cars door
+bool openCarDoors = false;
+
 
 //Luz direccional remota 45
 GLfloat p4[4];
@@ -252,6 +255,17 @@ void special_key(int key, int, int y)
 		glutPostRedisplay();
 }
 
+static void timerOpenCarDoors(int time){
+	escena->coche->openDoors(1);
+	glutPostRedisplay();
+	glutTimerFunc(25,timerOpenCarDoors, time);
+}
+
+void timerCloseCarDoors(int time){
+	escena->coche->closeDoors(1);
+//	glutPostRedisplay();
+//	glutTimerFunc(25,timerCloseCarDoors, 0);
+}
 
 void key(unsigned char key, int x, int y){
 	bool need_redisplay = true;
@@ -306,7 +320,19 @@ void key(unsigned char key, int x, int y){
 
 			break;
 		case 99://c
-			escena->coche->openCloseDoors();
+			if(!openCarDoors){
+				//timerOpenCarDoors(20);
+//				for (int i = 0; i < 60; i++){
+//					glutTimerFunc(20,timerOpenCarDoors,0);
+//					display();
+//				}
+				int time = glutGet(GLUT_ELAPSED_TIME);
+				openCarDoors = true;
+			}
+			else{
+				timerCloseCarDoors(20);
+			}
+
 			break;
 		case 101://e
 			cam->recorridoEje(-7, 0, 0);

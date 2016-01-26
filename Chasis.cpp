@@ -9,7 +9,8 @@
 
 Chasis::Chasis() {
 
-		//numTexturas=-1;
+		numTexturas=1;
+		colourMaterial = true;
 		//Crea Malla del Chasis
 		numVertices = 42;
 		numCaras = 27;

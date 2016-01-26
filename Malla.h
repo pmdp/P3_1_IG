@@ -19,8 +19,10 @@ protected:
 	GLuint* textura;
 	int numTexturas;
 	int numCaraTextura;
+	bool colourMaterial;
 
 public:
+	Malla(){colourMaterial = false; numTexturas = -1;}
 	~Malla();
 	void dibuja();
 	virtual void girar(float angle) {}

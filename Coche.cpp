@@ -90,7 +90,6 @@ Coche::Coche()
 	// ---------------------------------------------------
 
 	// PUERTAS -------------------------------------------
-	doorsOpen = false;
 	puertaIzq = new Puerta();
 	puertaIzq->mt->escala(new PV3D(0.6,0.6,0.6,1));
 	puertaIzq->mt->traslada(new PV3D(-3.0,2.2,4.0,1));
@@ -103,17 +102,14 @@ Coche::Coche()
 	addObjeto(puertaDrch);
 }
 
-void Coche::openCloseDoors(){
-	if(!doorsOpen){
-		puertaIzq->mt->rota(-60,0,1,0);
-		puertaDrch->mt->rota(60,0,1,0);
-		doorsOpen = true;
-	}
-	else{
-		puertaIzq->mt->rota(60,0,1,0);
-		puertaDrch->mt->rota(-60,0,1,0);
-		doorsOpen = false;
-	}
+void Coche::openDoors(int angle){
+	puertaIzq->mt->rota(-angle,0,1,0);
+	puertaDrch->mt->rota(angle,0,1,0);
+}
+
+void Coche::closeDoors(int angle){
+	puertaIzq->mt->rota(angle,0,1,0);
+	puertaDrch->mt->rota(-angle,0,1,0);
 }
 void Coche::girar(float angle) 
 {

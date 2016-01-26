@@ -8,7 +8,7 @@
 #include "Puerta.h"
 
 Puerta::Puerta() {
-		numTexturas = -1;
+		numTexturas = 1;
 		//Crea Malla de la puerta
 		numVertices = 5;
 		numCaras = 1;
